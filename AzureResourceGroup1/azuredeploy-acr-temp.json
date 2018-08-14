@@ -1,0 +1,136 @@
+﻿{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "registries_aksacr_name": {
+            "defaultValue": "aksacr",
+            "type": "String"
+        },
+        "managedClusters_rg_aks_name": {
+            "defaultValue": "rg-aks",
+            "type": "String"
+        },
+        "replications_westus2_name": {
+            "defaultValue": "westus2",
+            "type": "String"
+        },
+        "replications_eastus2_name": {
+            "defaultValue": "eastus2",
+            "type": "String"
+        },
+        "managedClusters_rg_aks_vnetSubnetID": {
+            "defaultValue": "/subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-enterprise/subnets/vnet-k8s",
+            "type": "String"
+        },
+        "managedClusters_rg_aks_logAnalyticsWorkspaceResourceID": {
+            "defaultValue": "/subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourcegroups/defaultresourcegroup-eus/providers/microsoft.operationalinsights/workspaces/defaultworkspace-4dfeb08c-7e41-40af-a9fa-fabcac401c2d-eus",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourceGroups/rg-aks/providers/Microsoft.ContainerRegistry/registries/aksacr'.",
+            "type": "Microsoft.ContainerRegistry/registries",
+            "sku": {
+                "name": "Premium",
+                "tier": "Premium"
+            },
+            "name": "[parameters('registries_aksacr_name')]",
+            "apiVersion": "2017-10-01",
+            "location": "eastus2",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "adminUserEnabled": true
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourcegroups/rg-aks/providers/Microsoft.ContainerService/managedClusters/rg-aks'.",
+            "type": "Microsoft.ContainerService/managedClusters",
+            "name": "[parameters('managedClusters_rg_aks_name')]",
+            "apiVersion": "2018-03-31",
+            "location": "eastus2",
+            "scale": null,
+            "properties": {
+                "kubernetesVersion": "1.10.6",
+                "dnsPrefix": "clouldaks",
+                "agentPoolProfiles": [
+                    {
+                        "name": "agentpool",
+                        "count": 2,
+                        "vmSize": "Standard_DS1_v2",
+                        "storageProfile": "ManagedDisks",
+                        "vnetSubnetID": "[parameters('managedClusters_rg_aks_vnetSubnetID')]",
+                        "maxPods": 30,
+                        "osType": "Linux"
+                    }
+                ],
+                "servicePrincipalProfile": {
+                    "clientId": "81d723bf-1df3-41b6-91c6-1462b6b50baf"
+                },
+                "addonProfiles": {
+                    "httpApplicationRouting": {
+                        "enabled": true,
+                        "config": {
+                            "HTTPApplicationRoutingZoneName": "e5b76efcc0f7418fb61d.eastus2.aksapp.io"
+                        }
+                    },
+                    "omsagent": {
+                        "enabled": true,
+                        "config": {
+                            "logAnalyticsWorkspaceResourceID": "[parameters('managedClusters_rg_aks_logAnalyticsWorkspaceResourceID')]"
+                        }
+                    }
+                },
+                "enableRBAC": true,
+              "networkProfile": {
+                "networkPlugin": "azure",
+                "serviceCidr": "10.0.0.0/16",
+                "dnsServiceIP": "10.0.0.10",
+                "dockerBridgeCidr": "172.17.0.1/16"
+              }
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourceGroups/rg-aks/providers/Microsoft.ContainerRegistry/registries/aksacr/replications/westus2'.",
+            "type": "Microsoft.ContainerRegistry/registries/replications",
+            "name": "[concat(parameters('registries_aksacr_name'), '/', parameters('replications_westus2_name'))]",
+            "apiVersion": "2017-10-01",
+            "location": "westus2",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "status": {
+                    "displayStatus": "Ready",
+                    "timestamp": "2018-08-07T01:41:02.0579099Z"
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.ContainerRegistry/registries', parameters('registries_aksacr_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourceGroups/rg-aks/providers/Microsoft.ContainerRegistry/registries/aksacr/replications/eastus2'.",
+            "type": "Microsoft.ContainerRegistry/registries/replications",
+            "name": "[concat(parameters('registries_aksacr_name'), '/', parameters('replications_eastus2_name'))]",
+            "apiVersion": "2017-10-01",
+            "location": "eastus2",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "status": {
+                    "displayStatus": "Ready",
+                    "timestamp": "2018-08-07T01:40:46.3822398Z"
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.ContainerRegistry/registries', parameters('registries_aksacr_name'))]"
+            ]
+        }
+    ]
+}

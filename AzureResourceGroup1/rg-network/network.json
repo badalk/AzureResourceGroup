@@ -1,0 +1,48 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+  },
+  "variables": {
+    "vnet-enterprisePrefix": "172.16.0.0/16",
+    "vnet-enterpriseSubnet1Name": "vnet-enterprise-sn-servers-01",
+    "vnet-enterpriseSubnet1Prefix": "172.16.0.0/24",
+    "vnet-enterpriseSubnet2Name": "vnet-enterprise-sn-dmz-01",
+    "vnet-enterpriseSubnet2Prefix": "172.16.1.0/24"
+  },
+  "resources": [
+    {
+      "name": "vnet-enterprise",
+      "type": "Microsoft.Network/virtualNetworks",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2016-03-30",
+      "dependsOn": [ ],
+      "tags": {
+        "displayName": "vnet-enterprise"
+      },
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[variables('vnet-enterprisePrefix')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[variables('vnet-enterpriseSubnet1Name')]",
+            "properties": {
+              "addressPrefix": "[variables('vnet-enterpriseSubnet1Prefix')]"
+            }
+          },
+          {
+            "name": "[variables('vnet-enterpriseSubnet2Name')]",
+            "properties": {
+              "addressPrefix": "[variables('vnet-enterpriseSubnet2Prefix')]"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "outputs": {
+  }
+}

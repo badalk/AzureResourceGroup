@@ -1,0 +1,536 @@
+﻿{
+
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+
+  "contentVersion": "1.0.0.0",
+
+  "parameters": {
+
+    "databaseserver": {
+
+      "type": "string"
+
+    },
+
+    "databaselist": {
+
+      "type": "array",
+
+      "metadata": {
+
+      }
+
+    },
+
+    "firewallruleList": {
+
+      "type": "array",
+
+      "metadata": {
+
+      }
+
+    },
+
+    "sqladminLogin": {
+
+      "type": "string"
+
+    },
+
+    "sqladminpassword": {
+
+      "type": "securestring"
+
+    },
+
+    "emailaddresses": {
+
+      "type": "string"
+
+    },
+    "sqldbaudtdAdminLogin": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sqldbaudtdAdminLoginPassword": {
+      "type": "securestring"
+    },
+    "firstdbName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "firstdbCollation": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "SQL_Latin1_General_CP1_CI_AS"
+    },
+    "firstdbEdition": {
+      "type": "string",
+      "defaultValue": "Basic",
+      "allowedValues": [
+        "Basic",
+        "Standard",
+        "Premium"
+      ]
+    },
+    "firstdbRequestedServiceObjectiveName": {
+      "type": "string",
+      "defaultValue": "Basic",
+      "allowedValues": [
+        "Basic",
+        "S0",
+        "S1",
+        "S2",
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "metadata": {
+        "description": "Describes the performance level for Edition"
+      }
+    },
+    "seconddbName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "seconddbCollation": {
+      "type": "string",
+      "minLength": 1,
+      "defaultValue": "SQL_Latin1_General_CP1_CI_AS"
+    },
+    "seconddbEdition": {
+      "type": "string",
+      "defaultValue": "Basic",
+      "allowedValues": [
+        "Basic",
+        "Standard",
+        "Premium"
+      ]
+    },
+    "seconddbRequestedServiceObjectiveName": {
+      "type": "string",
+      "defaultValue": "Basic",
+      "allowedValues": [
+        "Basic",
+        "S0",
+        "S1",
+        "S2",
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "metadata": {
+        "description": "Describes the performance level for Edition"
+      }
+    }
+
+  },
+
+  "variables": {
+
+    "databaseServerName": "[toLower(parameters('databaseServer'))]",
+
+    "databaseServerLocation": "West Europe",
+
+    "defaultSecondaryLocation": "North Europe",
+
+    "databaseServerAdminLogin": "[parameters('sqlAdminLogin')]",
+
+    "databaseServerAdminLoginPassword": "[parameters('sqlAdminPassword')]",
+
+    "storageAccountName": "[toLower(parameters('databaseServer'))]",
+
+    "emailAddresses": "[parameters('emailAddresses')]",
+    "sqldbaudtdName": "[concat('sqldbaudtd', uniqueString(resourceGroup().id))]"
+
+  },
+
+  "resources": [
+
+    {
+
+      "type": "Microsoft.Storage/storageAccounts",
+
+      "name": "[variables('storageAccountName')]",
+
+      "apiVersion": "2016-01-01",
+
+      "location": "[resourceGroup().location]",
+
+      "sku": {
+
+        "name": "Standard_LRS"
+
+      },
+
+      "kind": "Storage",
+
+      "properties": {
+
+      }
+
+    },
+
+    {
+
+      "name": "[variables('databaseServerName')]",
+
+      "type": "Microsoft.Sql/servers",
+
+      "location": "[variables('databaseServerLocation')]",
+
+      "apiVersion": "2014-04-01-preview",
+
+      "dependsOn": [],
+
+      "tags": {
+
+        "DisplayName": "[variables('databaseServerName')]"
+
+      },
+
+      "properties": {
+
+        "administratorLogin": "[variables('databaseServerAdminLogin')]",
+
+        "administratorLoginPassword": "[variables('databaseServerAdminLoginPassword')]",
+
+        "version": "12.0"
+
+      },
+
+      "resources": [
+
+        {
+
+          "apiVersion": "2015-05-01-preview",
+
+          "type": "auditingSettings",
+
+          "name": "DefaultAuditingSettings",
+
+          "dependsOn": [
+
+            "[variables('databaseServerName')]",
+
+            "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
+
+            "DatabaseLoop"
+
+          ],
+
+          "properties": {
+
+            "State": "Enabled",
+
+            "storageEndpoint": "[concat('https://', variables ('storageAccountName'), '.blob.core.windows.net/')]",
+
+            "storageAccountAccessKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value]",
+
+            "storageAccountSubscriptionId": "[subscription().subscriptionId]",
+
+            "retentionDays": 0,
+
+            "auditActionsAndGroups": null,
+
+            "isStorageSecondaryKeyInUse": false
+
+          }
+
+        },
+
+        {
+
+          "apiVersion": "2015-05-01-preview",
+
+          "type": "securityAlertPolicies",
+
+          "name": "DefaultSecurityAlert",
+
+          "dependsOn": [
+
+            "[variables('databaseServerName')]",
+
+            "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
+
+            "[concat('Microsoft.Sql/servers/', variables('databaseServerName'), '/auditingSettings/DefaultAuditingSettings')]"
+
+          ],
+
+          "properties": {
+
+            "state": "Enabled",
+
+            "disabledAlerts": "",
+
+            "emailAddresses": "[variables('emailAddresses')]",
+
+            "emailAccountAdmins": "Enabled",
+
+            "retentionDays": "10",
+
+            "storageEndpoint": "[concat('https://', variables ('storageAccountName'), '.blob.core.windows.net/')]",
+
+            "storageAccountAccessKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value]"
+
+          }
+
+        }
+
+      ]
+
+    },
+
+    {
+
+      "type": "Microsoft.Sql/servers/firewallrules",
+
+      "name": "[concat(variables('databaseServerName'), '/', parameters('firewallRuleList')[copyIndex()].name)]",
+
+      "apiVersion": "2014-04-01-preview",
+
+      "location": "[variables('databaseServerLocation')]",
+
+      "properties": {
+
+        "startIpAddress": "[parameters('firewallRuleList')[copyIndex()].startIpAddress]",
+
+        "endIpAddress": "[parameters('firewallRuleList')[copyIndex()].endIpAddress]"
+
+      },
+
+      "resources": [],
+
+      "dependsOn": [
+
+        "[concat('Microsoft.Sql/servers/', variables('databaseServerName'))]"
+
+      ],
+
+      "copy": {
+
+        "name": "FirewallLoop",
+
+        "count": "[length(parameters('firewallRuleList'))]"
+
+      }
+
+    },
+
+    {
+
+      "apiVersion": "2014-04-01-preview",
+
+      "type": "Microsoft.Sql/servers/databases",
+
+      "copy": {
+
+        "name": "DatabaseLoop",
+
+        "count": "[length(parameters('databaseList'))]"
+
+      },
+
+      "dependsOn": [
+
+        "[concat('Microsoft.Sql/servers/', variables('databaseServerName'))]"
+
+      ],
+
+      "location": "[variables('databaseServerLocation')]",
+
+      "name": "[concat(variables('databaseServerName'), '/', string(parameters('databaseList')[copyIndex()].databaseName))]",
+
+      "properties": {
+
+        "collation": "[parameters('databaseList')[copyIndex()].collation]",
+
+        "edition": "[parameters('databaseList')[copyIndex()].databaseEdition]",
+
+        "maxSizeBytes": "[parameters('databaseList')[copyIndex()].maxSizeBytes]"
+
+      },
+
+      "tags": {
+
+        "DisplayName": "[variables('databaseServerName')]"
+
+      },
+
+      "resources": [
+
+        {
+
+          "name": "current",
+
+          "type": "transparentDataEncryption",
+
+          "dependsOn": [
+
+            "[parameters('databaseList')[copyIndex()].databaseName]"
+
+          ],
+
+          "location": null,
+
+          "apiVersion": "2014-04-01-preview",
+
+          "properties": {
+
+            "status": "Enabled"
+
+          }
+
+        },
+
+        {
+
+          "apiVersion": "2015-05-01-preview",
+
+          "type": "auditingSettings",
+
+          "name": "DatabaseauditingSettings",
+
+          "dependsOn": [
+
+            "[concat('Microsoft.Sql/servers/', variables('databaseServerName'), '/databases/', string(parameters('databaseList')[copyIndex()].databaseName))]",
+
+            "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
+
+            "[concat('Microsoft.Sql/servers/', variables('databaseServerName'), '/databases/', string(parameters('databaseList')[copyIndex()].databaseName), '/transparentDataEncryption/current')]"
+
+          ],
+
+          "properties": {
+
+            "State": "Enabled",
+
+            "storageEndpoint": "[concat('https://', variables ('storageAccountName'), '.blob.core.windows.net/')]",
+
+            "storageAccountAccessKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value]",
+
+            "retentionDays": 0,
+
+            "auditActionsAndGroups": [ "SUCCESSFUL_DATABASE_AUTHENTICATION_GROUP", "DATABASE_LOGOUT_GROUP", "USER_CHANGE_PASSWORD_GROUP" ],
+
+            "storageAccountSubscriptionId": "[subscription().subscriptionId]",
+
+            "isStorageSecondaryKeyInUse": false
+
+          }
+
+        },
+
+        {
+
+          "apiVersion": "2014-04-01-preview",
+
+          "type": "securityAlertPolicies",
+
+          "name": "DatabaseSecurityAlertPolicies",
+
+          "dependsOn": [
+
+            "[concat('Microsoft.Sql/servers/', variables('databaseServerName'), '/databases/' , string(parameters('databaseList')[copyIndex()].databaseName))]",
+
+            "[concat('Microsoft.Sql/servers/', variables('databaseServerName'), '/databases/' , string(parameters('databaseList')[copyIndex()].databaseName), '/auditingSettings/DatabaseauditingSettings')]",
+
+            "[concat('Microsoft.Sql/servers/', variables('databaseServerName'), '/databases/', string(parameters('databaseList')[copyIndex()].databaseName), '/transparentDataEncryption/current')]"
+
+          ],
+
+          "properties": {
+
+            "state": "Enabled",
+
+            "disabledAlerts": "",
+
+            "emailAddresses": "[variables('emailAddresses')]",
+
+            "emailAccountAdmins": "Enabled",
+
+            "retentionDays": "10",
+
+            "storageEndpoint": "[concat('https://', variables ('storageAccountName'), '.blob.core.windows.net/')]",
+
+            "storageAccountAccessKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value]"
+
+          }
+
+        }
+
+      ]
+
+    },
+    {
+      "name": "[variables('sqldbaudtdName')]",
+      "type": "Microsoft.Sql/servers",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2014-04-01-preview",
+      "dependsOn": [ ],
+      "tags": {
+        "displayName": "sqldbaudtd"
+      },
+      "properties": {
+        "administratorLogin": "[parameters('sqldbaudtdAdminLogin')]",
+        "administratorLoginPassword": "[parameters('sqldbaudtdAdminLoginPassword')]"
+      },
+      "resources": [
+        {
+          "name": "AllowAllWindowsAzureIps",
+          "type": "firewallrules",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2014-04-01-preview",
+          "dependsOn": [
+            "[resourceId('Microsoft.Sql/servers', variables('sqldbaudtdName'))]"
+          ],
+          "properties": {
+            "startIpAddress": "0.0.0.0",
+            "endIpAddress": "0.0.0.0"
+          }
+        },
+        {
+          "name": "[parameters('firstdbName')]",
+          "type": "databases",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2014-04-01-preview",
+          "dependsOn": [
+            "[resourceId('Microsoft.Sql/servers', variables('sqldbaudtdName'))]"
+          ],
+          "tags": {
+            "displayName": "firstdb"
+          },
+          "properties": {
+            "collation": "[parameters('firstdbCollation')]",
+            "edition": "[parameters('firstdbEdition')]",
+            "maxSizeBytes": "1073741824",
+            "requestedServiceObjectiveName": "[parameters('firstdbRequestedServiceObjectiveName')]"
+          }
+        },
+        {
+          "name": "[parameters('seconddbName')]",
+          "type": "databases",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2014-04-01-preview",
+          "dependsOn": [
+            "[resourceId('Microsoft.Sql/servers', variables('sqldbaudtdName'))]"
+          ],
+          "tags": {
+            "displayName": "seconddb"
+          },
+          "properties": {
+            "collation": "[parameters('seconddbCollation')]",
+            "edition": "[parameters('seconddbEdition')]",
+            "maxSizeBytes": "1073741824",
+            "requestedServiceObjectiveName": "[parameters('seconddbRequestedServiceObjectiveName')]"
+          }
+        }
+      ]
+    }
+
+  ],
+
+  "outputs": {}
+
+}

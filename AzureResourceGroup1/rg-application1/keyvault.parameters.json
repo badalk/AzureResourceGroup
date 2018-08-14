@@ -1,0 +1,12 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "adminObjectId": {
+      "value": "ac40b411-82db-4b66-a768-1b42898d7072"
+    },
+    "keyVaultName": {
+      "value": "vmcreds-keyvault"
+    }
+  }
+}

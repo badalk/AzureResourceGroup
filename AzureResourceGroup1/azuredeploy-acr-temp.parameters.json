@@ -1,0 +1,24 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "registries_aksacr_name": {
+      "value": null
+    },
+    "managedClusters_rg_aks_name": {
+      "value": null
+    },
+    "replications_westus2_name": {
+      "value": null
+    },
+    "replications_eastus2_name": {
+      "value": null
+    },
+    "managedClusters_rg_aks_vnetSubnetID": {
+      "value": null
+    },
+    "managedClusters_rg_aks_logAnalyticsWorkspaceResourceID": {
+      "value": null
+    }
+  }
+}

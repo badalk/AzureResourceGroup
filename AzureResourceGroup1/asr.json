@@ -1,0 +1,1073 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "certificates_AzureRunAsCertificate_base64Value": {
+            "defaultValue": null,
+            "type": "SecureString"
+        },
+        "vaults_rsvault_name": {
+            "defaultValue": "rsvault",
+            "type": "String"
+        },
+        "storageAccounts_sapvyqrsvaultasrcache_name": {
+            "defaultValue": "sapvyqrsvaultasrcache",
+            "type": "String"
+        },
+        "backupPolicies_DefaultPolicy_name": {
+            "defaultValue": "DefaultPolicy",
+            "type": "String"
+        },
+        "backupPolicies_HourlyLogBackup_name": {
+            "defaultValue": "HourlyLogBackup",
+            "type": "String"
+        },
+        "automationAccounts_rsvault_9rr_asr_automationaccount_name": {
+            "defaultValue": "rsvault-9rr-asr-automationaccount",
+            "type": "String"
+        },
+        "replicationFabrics_asr_a2a_default_westus2_name": {
+            "defaultValue": "asr-a2a-default-westus2",
+            "type": "String"
+        },
+        "replicationFabrics_asr_a2a_default_eastus2_name": {
+            "defaultValue": "asr-a2a-default-eastus2",
+            "type": "String"
+        },
+        "replicationAlertSettings_defaultAlertSetting_name": {
+            "defaultValue": "defaultAlertSetting",
+            "type": "String"
+        },
+        "replicationPolicies_24_hour_retention_policy_name": {
+            "defaultValue": "24-hour-retention-policy",
+            "type": "String"
+        },
+        "modules_Azure_name": {
+            "defaultValue": "Azure",
+            "type": "String"
+        },
+        "modules_AzureRM.Sql_name": {
+            "defaultValue": "AzureRM.Sql",
+            "type": "String"
+        },
+        "connectionTypes_Azure_name": {
+            "defaultValue": "Azure",
+            "type": "String"
+        },
+        "modules_Azure.Storage_name": {
+            "defaultValue": "Azure.Storage",
+            "type": "String"
+        },
+        "modules_AzureRM.Compute_name": {
+            "defaultValue": "AzureRM.Compute",
+            "type": "String"
+        },
+        "modules_AzureRM.Profile_name": {
+            "defaultValue": "AzureRM.Profile",
+            "type": "String"
+        },
+        "modules_AzureRM.Storage_name": {
+            "defaultValue": "AzureRM.Storage",
+            "type": "String"
+        },
+        "modules_AzureRM.Resources_name": {
+            "defaultValue": "AzureRM.Resources",
+            "type": "String"
+        },
+        "modules_AzureRM.Automation_name": {
+            "defaultValue": "AzureRM.Automation",
+            "type": "String"
+        },
+        "connections_AzureRunAsConnection_name": {
+            "defaultValue": "AzureRunAsConnection",
+            "type": "String"
+        },
+        "modules_Microsoft.PowerShell.Core_name": {
+            "defaultValue": "Microsoft.PowerShell.Core",
+            "type": "String"
+        },
+        "certificates_AzureRunAsCertificate_name": {
+            "defaultValue": "AzureRunAsCertificate",
+            "type": "String"
+        },
+        "modules_Microsoft.WSMan.Management_name": {
+            "defaultValue": "Microsoft.WSMan.Management",
+            "type": "String"
+        },
+        "modules_Microsoft.PowerShell.Utility_name": {
+            "defaultValue": "Microsoft.PowerShell.Utility",
+            "type": "String"
+        },
+        "connectionTypes_AzureServicePrincipal_name": {
+            "defaultValue": "AzureServicePrincipal",
+            "type": "String"
+        },
+        "modules_Microsoft.PowerShell.Security_name": {
+            "defaultValue": "Microsoft.PowerShell.Security",
+            "type": "String"
+        },
+        "connectionTypes_AzureClassicCertificate_name": {
+            "defaultValue": "AzureClassicCertificate",
+            "type": "String"
+        },
+        "modules_Microsoft.PowerShell.Management_name": {
+            "defaultValue": "Microsoft.PowerShell.Management",
+            "type": "String"
+        },
+        "modules_Microsoft.PowerShell.Diagnostics_name": {
+            "defaultValue": "Microsoft.PowerShell.Diagnostics",
+            "type": "String"
+        },
+        "jobs_e7493709_5be8_42b1_b03d_d3c6b0991f68_name": {
+            "defaultValue": "e7493709-5be8-42b1-b03d-d3c6b0991f68",
+            "type": "String"
+        },
+        "modules_Orchestrator.AssetManagement.Cmdlets_name": {
+            "defaultValue": "Orchestrator.AssetManagement.Cmdlets",
+            "type": "String"
+        },
+        "jobSchedules_efbd108c_314d_48ab_8d03_002ef3ad4ec3_name": {
+            "defaultValue": "efbd108c-314d-48ab-8d03-002ef3ad4ec3",
+            "type": "String"
+        },
+        "jobSchedules_506604ec_3e51_4304_8407_d1e78af5227c_name": {
+            "defaultValue": "506604ec-3e51-4304-8407-d1e78af5227c",
+            "type": "String"
+        },
+        "replicationProtectionContainers_asr_a2a_default_westus2_container_name": {
+            "defaultValue": "asr-a2a-default-westus2-container",
+            "type": "String"
+        },
+        "replicationProtectionContainers_asr_a2a_default_eastus2_container_name": {
+            "defaultValue": "asr-a2a-default-eastus2-container",
+            "type": "String"
+        },
+        "schedules_eastus2_westus2_24_hour_retention_policy_474f3bd9_5f33_5ae2_9495_7e018f03625f_name": {
+            "defaultValue": "eastus2-westus2-24-hour-retention-policy_474f3bd9-5f33-5ae2-9495-7e018f03625f",
+            "type": "String"
+        },
+        "schedules_westus2_eastus2_24_hour_retention_policy_1bdd4ecb_bb5b_5ed5_b2b6_db8d008b4715_name": {
+            "defaultValue": "westus2-eastus2-24-hour-retention-policy_1bdd4ecb-bb5b-5ed5-b2b6-db8d008b4715",
+            "type": "String"
+        },
+        "jobs_SCH_efbd108c_314d_48ab_8d03_002ef3ad4ec3_eeb88e83_c101_4c92_8abc_2073abd93f93_636661872600000000_name": {
+            "defaultValue": "SCH_efbd108c-314d-48ab-8d03-002ef3ad4ec3_eeb88e83-c101-4c92-8abc-2073abd93f93_636661872600000000",
+            "type": "String"
+        },
+        "replicationProtectedItems_30d050cb_055d_4584_84d9_5a3396b1c8fa_name": {
+            "defaultValue": "30d050cb-055d-4584-84d9-5a3396b1c8fa",
+            "type": "String"
+        },
+        "replicationProtectedItems_c35a55bc_18cd_4781_9353_6f855da5c6af_name": {
+            "defaultValue": "c35a55bc-18cd-4781-9353-6f855da5c6af",
+            "type": "String"
+        },
+        "replicationProtectionContainerMappings_eastus2_westus2_24_hour_retention_policy_name": {
+            "defaultValue": "eastus2-westus2-24-hour-retention-policy",
+            "type": "String"
+        },
+        "replicationProtectionContainerMappings_westus2_eastus2_24_hour_retention_policy_name": {
+            "defaultValue": "westus2-eastus2-24-hour-retention-policy",
+            "type": "String"
+        },
+        "replicationProtectedItems_30d050cb_055d_4584_84d9_5a3396b1c8fa_fabricObjectId": {
+            "defaultValue": "/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/avsetswestus2/providers/microsoft.compute/virtualmachines/myvm0",
+            "type": "String"
+        },
+        "replicationProtectedItems_30d050cb_055d_4584_84d9_5a3396b1c8fa_diskId": {
+            "defaultValue": "/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/avsetswestus2/providers/microsoft.compute/disks/myvm0_osdisk_1_03ea19af6cbf42f6bd30a966ea8f56a6",
+            "type": "String"
+        },
+        "replicationProtectedItems_30d050cb_055d_4584_84d9_5a3396b1c8fa_recoveryResourceGroupId": {
+            "defaultValue": "/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourceGroups/avsetswestus2-asr",
+            "type": "String"
+        },
+        "replicationProtectedItems_30d050cb_055d_4584_84d9_5a3396b1c8fa_recoveryReplicaDiskId": {
+            "defaultValue": "/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourceGroups/avsetswestus2-asr/providers/Microsoft.Compute/disks/myVM0_OsDisk_1_03ea19af6cbf42f6bd30a966ea8f56a6-ASRReplica",
+            "type": "String"
+        },
+        "replicationProtectedItems_30d050cb_055d_4584_84d9_5a3396b1c8fa_recoveryAzureResourceGroupId": {
+            "defaultValue": "/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourceGroups/avsetswestus2-asr",
+            "type": "String"
+        },
+        "replicationProtectedItems_30d050cb_055d_4584_84d9_5a3396b1c8fa_recoveryAvailabilitySet": {
+            "defaultValue": "/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourceGroups/avsetswestus2-asr/providers/Microsoft.Compute/availabilitySets/MYAVSET-asr",
+            "type": "String"
+        },
+        "replicationProtectedItems_30d050cb_055d_4584_84d9_5a3396b1c8fa_selectedRecoveryAzureNetworkId": {
+            "defaultValue": "/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/avsetswestus2-asr/providers/microsoft.network/virtualnetworks/myvnet-asr",
+            "type": "String"
+        },
+        "replicationProtectedItems_30d050cb_055d_4584_84d9_5a3396b1c8fa_sourceNicArmId": {
+            "defaultValue": "/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourceGroups/avsetswestus2/providers/Microsoft.Network/networkInterfaces/nic0",
+            "type": "String"
+        },
+        "replicationProtectedItems_30d050cb_055d_4584_84d9_5a3396b1c8fa_recoveryVMNetworkId": {
+            "defaultValue": "/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/avsetswestus2-asr/providers/microsoft.network/virtualnetworks/myvnet-asr",
+            "type": "String"
+        },
+        "replicationProtectedItems_c35a55bc_18cd_4781_9353_6f855da5c6af_fabricObjectId": {
+            "defaultValue": "/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/avsetswestus2/providers/microsoft.compute/virtualmachines/myvm1",
+            "type": "String"
+        },
+        "replicationProtectedItems_c35a55bc_18cd_4781_9353_6f855da5c6af_diskId": {
+            "defaultValue": "/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/avsetswestus2/providers/microsoft.compute/disks/myvm1_osdisk_1_43ee10a208544a3e83955c122e1018d1",
+            "type": "String"
+        },
+        "replicationProtectedItems_c35a55bc_18cd_4781_9353_6f855da5c6af_recoveryResourceGroupId": {
+            "defaultValue": "/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourceGroups/avsetswestus2-asr",
+            "type": "String"
+        },
+        "replicationProtectedItems_c35a55bc_18cd_4781_9353_6f855da5c6af_recoveryReplicaDiskId": {
+            "defaultValue": "/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourceGroups/avsetswestus2-asr/providers/Microsoft.Compute/disks/myVM1_OsDisk_1_43ee10a208544a3e83955c122e1018d1-ASRReplica",
+            "type": "String"
+        },
+        "replicationProtectedItems_c35a55bc_18cd_4781_9353_6f855da5c6af_recoveryAzureResourceGroupId": {
+            "defaultValue": "/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourceGroups/avsetswestus2-asr",
+            "type": "String"
+        },
+        "replicationProtectedItems_c35a55bc_18cd_4781_9353_6f855da5c6af_recoveryAvailabilitySet": {
+            "defaultValue": "/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourceGroups/avsetswestus2-asr/providers/Microsoft.Compute/availabilitySets/MYAVSET-asr",
+            "type": "String"
+        },
+        "replicationProtectedItems_c35a55bc_18cd_4781_9353_6f855da5c6af_selectedRecoveryAzureNetworkId": {
+            "defaultValue": "/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/avsetswestus2-asr/providers/microsoft.network/virtualnetworks/myvnet-asr",
+            "type": "String"
+        },
+        "replicationProtectedItems_c35a55bc_18cd_4781_9353_6f855da5c6af_sourceNicArmId": {
+            "defaultValue": "/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourceGroups/avsetswestus2/providers/Microsoft.Network/networkInterfaces/nic1",
+            "type": "String"
+        },
+        "replicationProtectedItems_c35a55bc_18cd_4781_9353_6f855da5c6af_recoveryVMNetworkId": {
+            "defaultValue": "/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/avsetswestus2-asr/providers/microsoft.network/virtualnetworks/myvnet-asr",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount'.",
+            "type": "Microsoft.Automation/automationAccounts",
+            "name": "[parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name')]",
+            "apiVersion": "2015-10-31",
+            "location": "uksouth",
+            "tags": {},
+            "scale": null,
+            "properties": {},
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourceGroups/recoveryvault/providers/Microsoft.RecoveryServices/vaults/rsvault'.",
+            "type": "Microsoft.RecoveryServices/vaults",
+            "sku": {
+                "name": "RS0",
+                "tier": "Standard"
+            },
+            "name": "[parameters('vaults_rsvault_name')]",
+            "apiVersion": "2018-01-10",
+            "location": "francecentral",
+            "scale": null,
+            "properties": {},
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourceGroups/recoveryvault/providers/Microsoft.Storage/storageAccounts/sapvyqrsvaultasrcache'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_sapvyqrsvaultasrcache_name')]",
+            "apiVersion": "2018-02-01",
+            "location": "westus2",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [],
+                    "ipRules": [],
+                    "defaultAction": "Allow"
+                },
+                "supportsHttpsTrafficOnly": false,
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "enabled": true
+                        },
+                        "blob": {
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/certificates/AzureRunAsCertificate'.",
+            "type": "Microsoft.Automation/automationAccounts/certificates",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('certificates_AzureRunAsCertificate_name'))]",
+            "apiVersion": "2015-10-31",
+            "scale": null,
+            "properties": {
+                "description": "This certificate is used to authenticate with the service principal that was automatically created for this account. For details on this service principal and certificate, or to recreate them, go to this account’s Settings. For example usage, see the tutorial runbook in this account.",
+                "isExportable": true,
+                "thumbprint": "54B93139687042C16B6E990B8D167E3DCD9F2784",
+                "base64Value": "[parameters('certificates_AzureRunAsCertificate_base64Value')]"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/connections/AzureRunAsConnection'.",
+            "type": "Microsoft.Automation/automationAccounts/connections",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('connections_AzureRunAsConnection_name'))]",
+            "apiVersion": "2015-10-31",
+            "scale": null,
+            "properties": {
+                "description": null,
+                "fieldDefinitionValues": null,
+                "connectionType": {
+                    "name": "AzureServicePrincipal"
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/connectionTypes/Azure'.",
+            "type": "Microsoft.Automation/automationAccounts/connectionTypes",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('connectionTypes_Azure_name'))]",
+            "apiVersion": "2015-10-31",
+            "scale": null,
+            "properties": {
+                "isGlobal": true,
+                "fieldDefinitions": {
+                    "AutomationCertificateName": {
+                        "isEncrypted": false,
+                        "isOptional": false,
+                        "type": "System.String"
+                    },
+                    "SubscriptionID": {
+                        "isEncrypted": false,
+                        "isOptional": false,
+                        "type": "System.String"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/connectionTypes/AzureClassicCertificate'.",
+            "type": "Microsoft.Automation/automationAccounts/connectionTypes",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('connectionTypes_AzureClassicCertificate_name'))]",
+            "apiVersion": "2015-10-31",
+            "scale": null,
+            "properties": {
+                "isGlobal": true,
+                "fieldDefinitions": {
+                    "SubscriptionName": {
+                        "isEncrypted": false,
+                        "isOptional": false,
+                        "type": "System.String"
+                    },
+                    "SubscriptionId": {
+                        "isEncrypted": false,
+                        "isOptional": false,
+                        "type": "System.String"
+                    },
+                    "CertificateAssetName": {
+                        "isEncrypted": false,
+                        "isOptional": false,
+                        "type": "System.String"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/connectionTypes/AzureServicePrincipal'.",
+            "type": "Microsoft.Automation/automationAccounts/connectionTypes",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('connectionTypes_AzureServicePrincipal_name'))]",
+            "apiVersion": "2015-10-31",
+            "scale": null,
+            "properties": {
+                "isGlobal": true,
+                "fieldDefinitions": {
+                    "ApplicationId": {
+                        "isEncrypted": false,
+                        "isOptional": false,
+                        "type": "System.String"
+                    },
+                    "TenantId": {
+                        "isEncrypted": false,
+                        "isOptional": false,
+                        "type": "System.String"
+                    },
+                    "CertificateThumbprint": {
+                        "isEncrypted": false,
+                        "isOptional": false,
+                        "type": "System.String"
+                    },
+                    "SubscriptionId": {
+                        "isEncrypted": false,
+                        "isOptional": false,
+                        "type": "System.String"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/jobs/SCH_efbd108c-314d-48ab-8d03-002ef3ad4ec3_eeb88e83-c101-4c92-8abc-2073abd93f93_636661872600000000'.",
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('jobs_SCH_efbd108c_314d_48ab_8d03_002ef3ad4ec3_eeb88e83_c101_4c92_8abc_2073abd93f93_636661872600000000_name'))]",
+            "apiVersion": "2017-05-15-preview",
+            "scale": null,
+            "properties": {
+                "runbook": {
+                    "name": "MS-SR-Update-MobilityServiceForA2AVirtualMachinesAAMMAwEEDAM"
+                },
+                "runOn": null
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/jobs/e7493709-5be8-42b1-b03d-d3c6b0991f68'.",
+            "type": "Microsoft.Automation/automationAccounts/jobs",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('jobs_e7493709_5be8_42b1_b03d_d3c6b0991f68_name'))]",
+            "apiVersion": "2017-05-15-preview",
+            "scale": null,
+            "properties": {
+                "runbook": {
+                    "name": "MS-ASR-Modify-AutoUpdateForA2AVirtualMachinesAAMMAwEEDAM"
+                },
+                "runOn": null
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/jobSchedules/efbd108c-314d-48ab-8d03-002ef3ad4ec3'.",
+            "type": "Microsoft.Automation/automationAccounts/jobSchedules",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('jobSchedules_efbd108c_314d_48ab_8d03_002ef3ad4ec3_name'))]",
+            "apiVersion": "2015-10-31",
+            "scale": null,
+            "properties": {
+                "runbook": {
+                    "name": "MS-SR-Update-MobilityServiceForA2AVirtualMachinesAAMMAwEEDAM"
+                },
+                "schedule": {
+                    "name": "eastus2-westus2-24-hour-retention-policy_474f3bd9-5f33-5ae2-9495-7e018f03625f"
+                },
+                "runOn": null,
+                "parameters": null
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/jobSchedules/506604ec-3e51-4304-8407-d1e78af5227c'.",
+            "type": "Microsoft.Automation/automationAccounts/jobSchedules",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('jobSchedules_506604ec_3e51_4304_8407_d1e78af5227c_name'))]",
+            "apiVersion": "2015-10-31",
+            "scale": null,
+            "properties": {
+                "runbook": {
+                    "name": "MS-SR-Update-MobilityServiceForA2AVirtualMachinesAAMMAwEEDAM"
+                },
+                "schedule": {
+                    "name": "westus2-eastus2-24-hour-retention-policy_1bdd4ecb-bb5b-5ed5-b2b6-db8d008b4715"
+                },
+                "runOn": null,
+                "parameters": null
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/modules/Azure'.",
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('modules_Azure_name'))]",
+            "apiVersion": "2015-10-31",
+            "scale": null,
+            "properties": {
+                "contentLink": {}
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/modules/Azure.Storage'.",
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('modules_Azure.Storage_name'))]",
+            "apiVersion": "2015-10-31",
+            "scale": null,
+            "properties": {
+                "contentLink": {}
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/modules/AzureRM.Automation'.",
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('modules_AzureRM.Automation_name'))]",
+            "apiVersion": "2015-10-31",
+            "scale": null,
+            "properties": {
+                "contentLink": {}
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/modules/AzureRM.Compute'.",
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('modules_AzureRM.Compute_name'))]",
+            "apiVersion": "2015-10-31",
+            "scale": null,
+            "properties": {
+                "contentLink": {}
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/modules/AzureRM.Profile'.",
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('modules_AzureRM.Profile_name'))]",
+            "apiVersion": "2015-10-31",
+            "scale": null,
+            "properties": {
+                "contentLink": {}
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/modules/AzureRM.Resources'.",
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('modules_AzureRM.Resources_name'))]",
+            "apiVersion": "2015-10-31",
+            "scale": null,
+            "properties": {
+                "contentLink": {}
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/modules/AzureRM.Sql'.",
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('modules_AzureRM.Sql_name'))]",
+            "apiVersion": "2015-10-31",
+            "scale": null,
+            "properties": {
+                "contentLink": {}
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/modules/AzureRM.Storage'.",
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('modules_AzureRM.Storage_name'))]",
+            "apiVersion": "2015-10-31",
+            "scale": null,
+            "properties": {
+                "contentLink": {}
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/modules/Microsoft.PowerShell.Core'.",
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('modules_Microsoft.PowerShell.Core_name'))]",
+            "apiVersion": "2015-10-31",
+            "scale": null,
+            "properties": {
+                "contentLink": {}
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/modules/Microsoft.PowerShell.Diagnostics'.",
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('modules_Microsoft.PowerShell.Diagnostics_name'))]",
+            "apiVersion": "2015-10-31",
+            "scale": null,
+            "properties": {
+                "contentLink": {}
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/modules/Microsoft.PowerShell.Management'.",
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('modules_Microsoft.PowerShell.Management_name'))]",
+            "apiVersion": "2015-10-31",
+            "scale": null,
+            "properties": {
+                "contentLink": {}
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/modules/Microsoft.PowerShell.Security'.",
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('modules_Microsoft.PowerShell.Security_name'))]",
+            "apiVersion": "2015-10-31",
+            "scale": null,
+            "properties": {
+                "contentLink": {}
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/modules/Microsoft.PowerShell.Utility'.",
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('modules_Microsoft.PowerShell.Utility_name'))]",
+            "apiVersion": "2015-10-31",
+            "scale": null,
+            "properties": {
+                "contentLink": {}
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/modules/Microsoft.WSMan.Management'.",
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('modules_Microsoft.WSMan.Management_name'))]",
+            "apiVersion": "2015-10-31",
+            "scale": null,
+            "properties": {
+                "contentLink": {}
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/modules/Orchestrator.AssetManagement.Cmdlets'.",
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('modules_Orchestrator.AssetManagement.Cmdlets_name'))]",
+            "apiVersion": "2015-10-31",
+            "scale": null,
+            "properties": {
+                "contentLink": {}
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/schedules/eastus2-westus2-24-hour-retention-policy_474f3bd9-5f33-5ae2-9495-7e018f03625f'.",
+            "type": "Microsoft.Automation/automationAccounts/schedules",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('schedules_eastus2_westus2_24_hour_retention_policy_474f3bd9_5f33_5ae2_9495_7e018f03625f_name'))]",
+            "apiVersion": "2015-10-31",
+            "scale": null,
+            "properties": {
+                "description": null,
+                "startTime": "2018-07-03T00:01:00-04:00",
+                "expiryTime": "9999-12-31T18:59:00-05:00",
+                "interval": 1,
+                "frequency": "Day",
+                "timeZone": "Eastern Standard Time"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.Automation/automationAccounts/rsvault-9rr-asr-automationaccount/schedules/westus2-eastus2-24-hour-retention-policy_1bdd4ecb-bb5b-5ed5-b2b6-db8d008b4715'.",
+            "type": "Microsoft.Automation/automationAccounts/schedules",
+            "name": "[concat(parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'), '/', parameters('schedules_westus2_eastus2_24_hour_retention_policy_1bdd4ecb_bb5b_5ed5_b2b6_db8d008b4715_name'))]",
+            "apiVersion": "2015-10-31",
+            "scale": null,
+            "properties": {
+                "description": null,
+                "startTime": "2018-07-03T00:01:00-07:00",
+                "expiryTime": "9999-12-31T15:59:00-08:00",
+                "interval": 1,
+                "frequency": "Day",
+                "timeZone": "Pacific Standard Time"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_rsvault_9rr_asr_automationaccount_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.RecoveryServices/vaults/rsvault/backupPolicies/HourlyLogBackup'.",
+            "type": "Microsoft.RecoveryServices/vaults/backupPolicies",
+            "name": "[concat(parameters('vaults_rsvault_name'), '/', parameters('backupPolicies_HourlyLogBackup_name'))]",
+            "apiVersion": "2016-12-01",
+            "scale": null,
+            "properties": {
+                "backupManagementType": "AzureWorkload",
+                "protectedItemsCount": 0
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.RecoveryServices/vaults', parameters('vaults_rsvault_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourcegroups/recoveryvault/providers/Microsoft.RecoveryServices/vaults/rsvault/backupPolicies/DefaultPolicy'.",
+            "type": "Microsoft.RecoveryServices/vaults/backupPolicies",
+            "name": "[concat(parameters('vaults_rsvault_name'), '/', parameters('backupPolicies_DefaultPolicy_name'))]",
+            "apiVersion": "2016-12-01",
+            "scale": null,
+            "properties": {
+                "backupManagementType": "AzureIaasVM",
+                "protectedItemsCount": 0
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.RecoveryServices/vaults', parameters('vaults_rsvault_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/Subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourceGroups/recoveryvault/providers/Microsoft.RecoveryServices/vaults/rsvault/replicationAlertSettings/defaultAlertSetting'.",
+            "type": "Microsoft.RecoveryServices/vaults/replicationAlertSettings",
+            "name": "[concat(parameters('vaults_rsvault_name'), '/', parameters('replicationAlertSettings_defaultAlertSetting_name'))]",
+            "apiVersion": "2018-01-10",
+            "scale": null,
+            "properties": {
+                "sendToOwners": "DoNotSend",
+                "customEmailAddresses": [],
+                "locale": ""
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.RecoveryServices/vaults', parameters('vaults_rsvault_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/Subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourceGroups/recoveryvault/providers/Microsoft.RecoveryServices/vaults/rsvault/replicationFabrics/asr-a2a-default-westus2'.",
+            "type": "Microsoft.RecoveryServices/vaults/replicationFabrics",
+            "name": "[concat(parameters('vaults_rsvault_name'), '/', parameters('replicationFabrics_asr_a2a_default_westus2_name'))]",
+            "apiVersion": "2018-01-10",
+            "scale": null,
+            "properties": {
+                "customDetails": {
+                    "instanceType": "Azure",
+                    "location": "westus2",
+                    "containerIds": null
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.RecoveryServices/vaults', parameters('vaults_rsvault_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/Subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourceGroups/recoveryvault/providers/Microsoft.RecoveryServices/vaults/rsvault/replicationFabrics/asr-a2a-default-eastus2'.",
+            "type": "Microsoft.RecoveryServices/vaults/replicationFabrics",
+            "name": "[concat(parameters('vaults_rsvault_name'), '/', parameters('replicationFabrics_asr_a2a_default_eastus2_name'))]",
+            "apiVersion": "2018-01-10",
+            "scale": null,
+            "properties": {
+                "customDetails": {
+                    "instanceType": "Azure",
+                    "location": "eastus2",
+                    "containerIds": null
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.RecoveryServices/vaults', parameters('vaults_rsvault_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/Subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourceGroups/recoveryvault/providers/Microsoft.RecoveryServices/vaults/rsvault/replicationPolicies/24-hour-retention-policy'.",
+            "type": "Microsoft.RecoveryServices/vaults/replicationPolicies",
+            "name": "[concat(parameters('vaults_rsvault_name'), '/', parameters('replicationPolicies_24_hour_retention_policy_name'))]",
+            "apiVersion": "2018-01-10",
+            "scale": null,
+            "properties": {},
+            "dependsOn": [
+                "[resourceId('Microsoft.RecoveryServices/vaults', parameters('vaults_rsvault_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/Subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourceGroups/recoveryvault/providers/Microsoft.RecoveryServices/vaults/rsvault/replicationFabrics/asr-a2a-default-westus2/replicationProtectionContainers/asr-a2a-default-westus2-container'.",
+            "type": "Microsoft.RecoveryServices/vaults/replicationFabrics/replicationProtectionContainers",
+            "name": "[concat(parameters('vaults_rsvault_name'), '/', parameters('replicationFabrics_asr_a2a_default_westus2_name'), '/', parameters('replicationProtectionContainers_asr_a2a_default_westus2_container_name'))]",
+            "apiVersion": "2018-01-10",
+            "scale": null,
+            "properties": {},
+            "dependsOn": [
+                "[resourceId('Microsoft.RecoveryServices/vaults', parameters('vaults_rsvault_name'))]",
+                "[resourceId('Microsoft.RecoveryServices/vaults/replicationFabrics', parameters('vaults_rsvault_name'), parameters('replicationFabrics_asr_a2a_default_westus2_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/Subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourceGroups/recoveryvault/providers/Microsoft.RecoveryServices/vaults/rsvault/replicationFabrics/asr-a2a-default-westus2/replicationProtectionContainers/asr-a2a-default-westus2-container/replicationProtectedItems/30d050cb-055d-4584-84d9-5a3396b1c8fa'.",
+            "type": "Microsoft.RecoveryServices/vaults/replicationFabrics/replicationProtectionContainers/replicationProtectedItems",
+            "name": "[concat(parameters('vaults_rsvault_name'), '/', parameters('replicationFabrics_asr_a2a_default_westus2_name'), '/', parameters('replicationProtectionContainers_asr_a2a_default_westus2_container_name'), '/', parameters('replicationProtectedItems_30d050cb_055d_4584_84d9_5a3396b1c8fa_name'))]",
+            "apiVersion": "2018-01-10",
+            "scale": null,
+            "properties": {
+                "protectableItemId": null,
+                "policyId": "[resourceId('Microsoft.RecoveryServices/vaults/replicationPolicies', parameters('vaults_rsvault_name'), parameters('replicationPolicies_24_hour_retention_policy_name'))]",
+                "providerSpecificDetails": {
+                    "instanceType": "A2A",
+                    "fabricObjectId": "[parameters('replicationProtectedItems_30d050cb_055d_4584_84d9_5a3396b1c8fa_fabricObjectId')]",
+                    "multiVmGroupId": "4040c929-6c69-4d09-b3e4-9895d4dd8b08",
+                    "multiVmGroupName": "4040c929-6c69-4d09-b3e4-9895d4dd8b08",
+                    "multiVmGroupCreateOption": "AutoCreated",
+                    "managementId": "c1f4fbbc-0ab3-44a8-88fc-d800733ae4da",
+                    "protectedDisks": [],
+                    "protectedManagedDisks": [
+                        {
+                            "diskId": "[parameters('replicationProtectedItems_30d050cb_055d_4584_84d9_5a3396b1c8fa_diskId')]",
+                            "recoveryResourceGroupId": "[parameters('replicationProtectedItems_30d050cb_055d_4584_84d9_5a3396b1c8fa_recoveryResourceGroupId')]",
+                            "recoveryTargetDiskId": null,
+                            "recoveryReplicaDiskId": "[parameters('replicationProtectedItems_30d050cb_055d_4584_84d9_5a3396b1c8fa_recoveryReplicaDiskId')]",
+                            "recoveryReplicaDiskAccountType": "Standard_LRS",
+                            "recoveryTargetDiskAccountType": "Standard_LRS",
+                            "diskName": "myVM0_OsDisk_1_03ea19af6cbf42f6bd30a966ea8f56a6",
+                            "diskCapacityInBytes": 136367308800,
+                            "primaryStagingAzureStorageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_sapvyqrsvaultasrcache_name'))]",
+                            "diskType": "OperatingSystem",
+                            "resyncRequired": false,
+                            "monitoringPercentageCompletion": null,
+                            "monitoringJobType": null,
+                            "dataPendingInStagingStorageAccountInMB": 0,
+                            "dataPendingAtSourceAgentInMB": 0,
+                            "isDiskEncrypted": false,
+                            "secretIdentifier": null,
+                            "dekKeyVaultArmId": null,
+                            "isDiskKeyEncrypted": false,
+                            "keyIdentifier": null,
+                            "kekKeyVaultArmId": null
+                        }
+                    ],
+                    "recoveryBootDiagStorageAccountId": null,
+                    "primaryFabricLocation": "westus2",
+                    "recoveryFabricLocation": "eastus2",
+                    "osType": "Windows",
+                    "recoveryAzureVMSize": "Standard_D1",
+                    "recoveryAzureVMName": "myVM0",
+                    "recoveryAzureResourceGroupId": "[parameters('replicationProtectedItems_30d050cb_055d_4584_84d9_5a3396b1c8fa_recoveryAzureResourceGroupId')]",
+                    "recoveryCloudService": null,
+                    "recoveryAvailabilitySet": "[parameters('replicationProtectedItems_30d050cb_055d_4584_84d9_5a3396b1c8fa_recoveryAvailabilitySet')]",
+                    "selectedRecoveryAzureNetworkId": "[parameters('replicationProtectedItems_30d050cb_055d_4584_84d9_5a3396b1c8fa_selectedRecoveryAzureNetworkId')]",
+                    "vmNics": [
+                        {
+                            "nicId": "75940828-e617-59b0-8d19-0530f6881990",
+                            "replicaNicId": null,
+                            "sourceNicArmId": "[parameters('replicationProtectedItems_30d050cb_055d_4584_84d9_5a3396b1c8fa_sourceNicArmId')]",
+                            "vMSubnetName": "Subnet-1",
+                            "vMNetworkName": "myvnet",
+                            "recoveryVMNetworkId": "[parameters('replicationProtectedItems_30d050cb_055d_4584_84d9_5a3396b1c8fa_recoveryVMNetworkId')]",
+                            "recoveryVMSubnetName": "Subnet-1",
+                            "ipAddressType": "Dynamic",
+                            "primaryNicStaticIPAddress": "10.0.0.5",
+                            "replicaNicStaticIPAddress": "",
+                            "selectionType": "SelectedByDefault",
+                            "recoveryNicIpAddressType": "Dynamic"
+                        }
+                    ],
+                    "vmSyncedConfigDetails": {
+                        "tags": null,
+                        "roleAssignments": null,
+                        "inputEndpoints": null
+                    },
+                    "monitoringPercentageCompletion": null,
+                    "monitoringJobType": null,
+                    "lastHeartbeat": "2018-07-03T06:55:05.2014343Z",
+                    "agentVersion": "9.17.4887.1",
+                    "isReplicationAgentUpdateRequired": false,
+                    "recoveryFabricObjectId": null,
+                    "vmProtectionState": "Protected",
+                    "vmProtectionStateDescription": "Protected",
+                    "lifecycleId": "49c5734b-f678-43bd-b102-df521e38e861",
+                    "testFailoverRecoveryFabricObjectId": null,
+                    "rpoInSeconds": 8,
+                    "lastRpoCalculatedTime": "2018-07-03T06:55:16.2873569Z"
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.RecoveryServices/vaults', parameters('vaults_rsvault_name'))]",
+                "[resourceId('Microsoft.RecoveryServices/vaults/replicationFabrics', parameters('vaults_rsvault_name'), parameters('replicationFabrics_asr_a2a_default_westus2_name'))]",
+                "[resourceId('Microsoft.RecoveryServices/vaults/replicationFabrics/replicationProtectionContainers', parameters('vaults_rsvault_name'), parameters('replicationFabrics_asr_a2a_default_westus2_name'), parameters('replicationProtectionContainers_asr_a2a_default_westus2_container_name'))]",
+                "[resourceId('Microsoft.RecoveryServices/vaults/replicationPolicies', parameters('vaults_rsvault_name'), parameters('replicationPolicies_24_hour_retention_policy_name'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_sapvyqrsvaultasrcache_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/Subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourceGroups/recoveryvault/providers/Microsoft.RecoveryServices/vaults/rsvault/replicationFabrics/asr-a2a-default-westus2/replicationProtectionContainers/asr-a2a-default-westus2-container/replicationProtectedItems/c35a55bc-18cd-4781-9353-6f855da5c6af'.",
+            "type": "Microsoft.RecoveryServices/vaults/replicationFabrics/replicationProtectionContainers/replicationProtectedItems",
+            "name": "[concat(parameters('vaults_rsvault_name'), '/', parameters('replicationFabrics_asr_a2a_default_westus2_name'), '/', parameters('replicationProtectionContainers_asr_a2a_default_westus2_container_name'), '/', parameters('replicationProtectedItems_c35a55bc_18cd_4781_9353_6f855da5c6af_name'))]",
+            "apiVersion": "2018-01-10",
+            "scale": null,
+            "properties": {
+                "protectableItemId": null,
+                "policyId": "[resourceId('Microsoft.RecoveryServices/vaults/replicationPolicies', parameters('vaults_rsvault_name'), parameters('replicationPolicies_24_hour_retention_policy_name'))]",
+                "providerSpecificDetails": {
+                    "instanceType": "A2A",
+                    "fabricObjectId": "[parameters('replicationProtectedItems_c35a55bc_18cd_4781_9353_6f855da5c6af_fabricObjectId')]",
+                    "multiVmGroupId": "e2237fc2-5c17-4417-a438-e01ef5ce55a4",
+                    "multiVmGroupName": "e2237fc2-5c17-4417-a438-e01ef5ce55a4",
+                    "multiVmGroupCreateOption": "AutoCreated",
+                    "managementId": "176af2d4-92c6-4f49-897e-c4be977a59a2",
+                    "protectedDisks": [],
+                    "protectedManagedDisks": [
+                        {
+                            "diskId": "[parameters('replicationProtectedItems_c35a55bc_18cd_4781_9353_6f855da5c6af_diskId')]",
+                            "recoveryResourceGroupId": "[parameters('replicationProtectedItems_c35a55bc_18cd_4781_9353_6f855da5c6af_recoveryResourceGroupId')]",
+                            "recoveryTargetDiskId": null,
+                            "recoveryReplicaDiskId": "[parameters('replicationProtectedItems_c35a55bc_18cd_4781_9353_6f855da5c6af_recoveryReplicaDiskId')]",
+                            "recoveryReplicaDiskAccountType": "Standard_LRS",
+                            "recoveryTargetDiskAccountType": "Standard_LRS",
+                            "diskName": "myVM1_OsDisk_1_43ee10a208544a3e83955c122e1018d1",
+                            "diskCapacityInBytes": 136367308800,
+                            "primaryStagingAzureStorageAccountId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_sapvyqrsvaultasrcache_name'))]",
+                            "diskType": "OperatingSystem",
+                            "resyncRequired": false,
+                            "monitoringPercentageCompletion": null,
+                            "monitoringJobType": null,
+                            "dataPendingInStagingStorageAccountInMB": 0,
+                            "dataPendingAtSourceAgentInMB": 0,
+                            "isDiskEncrypted": false,
+                            "secretIdentifier": null,
+                            "dekKeyVaultArmId": null,
+                            "isDiskKeyEncrypted": false,
+                            "keyIdentifier": null,
+                            "kekKeyVaultArmId": null
+                        }
+                    ],
+                    "recoveryBootDiagStorageAccountId": null,
+                    "primaryFabricLocation": "westus2",
+                    "recoveryFabricLocation": "eastus2",
+                    "osType": "Windows",
+                    "recoveryAzureVMSize": "Standard_D1",
+                    "recoveryAzureVMName": "myVM1",
+                    "recoveryAzureResourceGroupId": "[parameters('replicationProtectedItems_c35a55bc_18cd_4781_9353_6f855da5c6af_recoveryAzureResourceGroupId')]",
+                    "recoveryCloudService": null,
+                    "recoveryAvailabilitySet": "[parameters('replicationProtectedItems_c35a55bc_18cd_4781_9353_6f855da5c6af_recoveryAvailabilitySet')]",
+                    "selectedRecoveryAzureNetworkId": "[parameters('replicationProtectedItems_c35a55bc_18cd_4781_9353_6f855da5c6af_selectedRecoveryAzureNetworkId')]",
+                    "vmNics": [
+                        {
+                            "nicId": "32266b60-4779-5962-b241-fbcc9f3694bd",
+                            "replicaNicId": null,
+                            "sourceNicArmId": "[parameters('replicationProtectedItems_c35a55bc_18cd_4781_9353_6f855da5c6af_sourceNicArmId')]",
+                            "vMSubnetName": "Subnet-1",
+                            "vMNetworkName": "myvnet",
+                            "recoveryVMNetworkId": "[parameters('replicationProtectedItems_c35a55bc_18cd_4781_9353_6f855da5c6af_recoveryVMNetworkId')]",
+                            "recoveryVMSubnetName": "Subnet-1",
+                            "ipAddressType": "Dynamic",
+                            "primaryNicStaticIPAddress": "10.0.0.4",
+                            "replicaNicStaticIPAddress": "",
+                            "selectionType": "SelectedByDefault",
+                            "recoveryNicIpAddressType": "Dynamic"
+                        }
+                    ],
+                    "vmSyncedConfigDetails": {
+                        "tags": null,
+                        "roleAssignments": null,
+                        "inputEndpoints": null
+                    },
+                    "monitoringPercentageCompletion": null,
+                    "monitoringJobType": null,
+                    "lastHeartbeat": "2018-07-03T06:51:44.2318781Z",
+                    "agentVersion": "9.17.4887.1",
+                    "isReplicationAgentUpdateRequired": false,
+                    "recoveryFabricObjectId": null,
+                    "vmProtectionState": "Protected",
+                    "vmProtectionStateDescription": "Protected",
+                    "lifecycleId": "72ac215d-ad38-4107-9154-6c63313543f6",
+                    "testFailoverRecoveryFabricObjectId": null,
+                    "rpoInSeconds": 12,
+                    "lastRpoCalculatedTime": "2018-07-03T06:52:13.3003428Z"
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.RecoveryServices/vaults', parameters('vaults_rsvault_name'))]",
+                "[resourceId('Microsoft.RecoveryServices/vaults/replicationFabrics', parameters('vaults_rsvault_name'), parameters('replicationFabrics_asr_a2a_default_westus2_name'))]",
+                "[resourceId('Microsoft.RecoveryServices/vaults/replicationFabrics/replicationProtectionContainers', parameters('vaults_rsvault_name'), parameters('replicationFabrics_asr_a2a_default_westus2_name'), parameters('replicationProtectionContainers_asr_a2a_default_westus2_container_name'))]",
+                "[resourceId('Microsoft.RecoveryServices/vaults/replicationPolicies', parameters('vaults_rsvault_name'), parameters('replicationPolicies_24_hour_retention_policy_name'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_sapvyqrsvaultasrcache_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/Subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourceGroups/recoveryvault/providers/Microsoft.RecoveryServices/vaults/rsvault/replicationFabrics/asr-a2a-default-eastus2/replicationProtectionContainers/asr-a2a-default-eastus2-container/replicationProtectionContainerMappings/eastus2-westus2-24-hour-retention-policy'.",
+            "type": "Microsoft.RecoveryServices/vaults/replicationFabrics/replicationProtectionContainers/replicationProtectionContainerMappings",
+            "name": "[concat(parameters('vaults_rsvault_name'), '/', parameters('replicationFabrics_asr_a2a_default_eastus2_name'), '/', parameters('replicationProtectionContainers_asr_a2a_default_eastus2_container_name'), '/', parameters('replicationProtectionContainerMappings_eastus2_westus2_24_hour_retention_policy_name'))]",
+            "apiVersion": "2018-01-10",
+            "scale": null,
+            "properties": {
+                "targetProtectionContainerId": "[resourceId('Microsoft.RecoveryServices/vaults/replicationFabrics/replicationProtectionContainers', parameters('vaults_rsvault_name'), parameters('replicationFabrics_asr_a2a_default_westus2_name'), parameters('replicationProtectionContainers_asr_a2a_default_westus2_container_name'))]",
+                "policyId": "[resourceId('Microsoft.RecoveryServices/vaults/replicationPolicies', parameters('vaults_rsvault_name'), parameters('replicationPolicies_24_hour_retention_policy_name'))]"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.RecoveryServices/vaults', parameters('vaults_rsvault_name'))]",
+                "[resourceId('Microsoft.RecoveryServices/vaults/replicationFabrics', parameters('vaults_rsvault_name'), parameters('replicationFabrics_asr_a2a_default_eastus2_name'))]",
+                "[resourceId('Microsoft.RecoveryServices/vaults/replicationFabrics/replicationProtectionContainers', parameters('vaults_rsvault_name'), parameters('replicationFabrics_asr_a2a_default_eastus2_name'), parameters('replicationProtectionContainers_asr_a2a_default_eastus2_container_name'))]",
+                "[resourceId('Microsoft.RecoveryServices/vaults/replicationFabrics/replicationProtectionContainers', parameters('vaults_rsvault_name'), parameters('replicationFabrics_asr_a2a_default_westus2_name'), parameters('replicationProtectionContainers_asr_a2a_default_westus2_container_name'))]",
+                "[resourceId('Microsoft.RecoveryServices/vaults/replicationPolicies', parameters('vaults_rsvault_name'), parameters('replicationPolicies_24_hour_retention_policy_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/Subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourceGroups/recoveryvault/providers/Microsoft.RecoveryServices/vaults/rsvault/replicationFabrics/asr-a2a-default-westus2/replicationProtectionContainers/asr-a2a-default-westus2-container/replicationProtectionContainerMappings/westus2-eastus2-24-hour-retention-policy'.",
+            "type": "Microsoft.RecoveryServices/vaults/replicationFabrics/replicationProtectionContainers/replicationProtectionContainerMappings",
+            "name": "[concat(parameters('vaults_rsvault_name'), '/', parameters('replicationFabrics_asr_a2a_default_westus2_name'), '/', parameters('replicationProtectionContainers_asr_a2a_default_westus2_container_name'), '/', parameters('replicationProtectionContainerMappings_westus2_eastus2_24_hour_retention_policy_name'))]",
+            "apiVersion": "2018-01-10",
+            "scale": null,
+            "properties": {
+                "targetProtectionContainerId": "[resourceId('Microsoft.RecoveryServices/vaults/replicationFabrics/replicationProtectionContainers', parameters('vaults_rsvault_name'), parameters('replicationFabrics_asr_a2a_default_eastus2_name'), parameters('replicationProtectionContainers_asr_a2a_default_eastus2_container_name'))]",
+                "policyId": "[resourceId('Microsoft.RecoveryServices/vaults/replicationPolicies', parameters('vaults_rsvault_name'), parameters('replicationPolicies_24_hour_retention_policy_name'))]"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.RecoveryServices/vaults', parameters('vaults_rsvault_name'))]",
+                "[resourceId('Microsoft.RecoveryServices/vaults/replicationFabrics', parameters('vaults_rsvault_name'), parameters('replicationFabrics_asr_a2a_default_westus2_name'))]",
+                "[resourceId('Microsoft.RecoveryServices/vaults/replicationFabrics/replicationProtectionContainers', parameters('vaults_rsvault_name'), parameters('replicationFabrics_asr_a2a_default_westus2_name'), parameters('replicationProtectionContainers_asr_a2a_default_westus2_container_name'))]",
+                "[resourceId('Microsoft.RecoveryServices/vaults/replicationFabrics/replicationProtectionContainers', parameters('vaults_rsvault_name'), parameters('replicationFabrics_asr_a2a_default_eastus2_name'), parameters('replicationProtectionContainers_asr_a2a_default_eastus2_container_name'))]",
+                "[resourceId('Microsoft.RecoveryServices/vaults/replicationPolicies', parameters('vaults_rsvault_name'), parameters('replicationPolicies_24_hour_retention_policy_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/Subscriptions/2c6c255e-7c2f-4866-b420-63b24ae236a5/resourceGroups/recoveryvault/providers/Microsoft.RecoveryServices/vaults/rsvault/replicationFabrics/asr-a2a-default-eastus2/replicationProtectionContainers/asr-a2a-default-eastus2-container'.",
+            "type": "Microsoft.RecoveryServices/vaults/replicationFabrics/replicationProtectionContainers",
+            "name": "[concat(parameters('vaults_rsvault_name'), '/', parameters('replicationFabrics_asr_a2a_default_eastus2_name'), '/', parameters('replicationProtectionContainers_asr_a2a_default_eastus2_container_name'))]",
+            "apiVersion": "2018-01-10",
+            "scale": null,
+            "properties": {},
+            "dependsOn": [
+                "[resourceId('Microsoft.RecoveryServices/vaults', parameters('vaults_rsvault_name'))]",
+                "[resourceId('Microsoft.RecoveryServices/vaults/replicationFabrics', parameters('vaults_rsvault_name'), parameters('replicationFabrics_asr_a2a_default_eastus2_name'))]"
+            ]
+        }
+    ]
+}

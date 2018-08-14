@@ -1,0 +1,24 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "registryName": {
+      "value": "aksacrregistry"
+    },
+    "sku": {
+      "value": "Standard"
+    },
+    "acrAdminUserEnabled": {
+      "value": true
+    },
+    "location": {
+      "value": "eastus2"
+    },
+    "replicatedregistrylocation": {
+      "value": "westus2"
+    },
+    "isReplicationEnabled": {
+      "value": true
+    }
+  }
+}

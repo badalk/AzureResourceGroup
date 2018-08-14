@@ -1,0 +1,41 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "serverName": {
+      "value": "appserver1"
+    },
+    "serverAdminUserName": {
+      "value": "badal"
+    },
+    "serverAdminPassword": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourceGroups/rg-application1/providers/Microsoft.KeyVault/vaults/vmcreds-keyvault"
+        },
+        "secretName": "vmPwdKVSecret"
+      }
+    },
+    "serverWindowsOSVersion": {
+      "value": "2012-R2-Datacenter"
+    },
+    "storageAccountName": {
+      "value": "appserver1-storageac"
+    },
+    "storageAccountLocation": {
+      "value": "eastus2"
+    },
+    "storageAccountResourceGroup": {
+      "value": "rg-application1"
+    },
+    "virtualNetworkLocation": {
+      "value": "eastus2"
+    },
+    "virtualNetworkResourceGroup": {
+      "value": "rg-network"
+    },
+    "pipDnsName": {
+      "value": "appserver1badal"
+    }
+  }
+}

@@ -1,0 +1,96 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "registryName": {
+      "type": "string",
+      "defaultValue": "[concat(substring(uniquestring(resourceGroup().id), 6), 'acr')]",
+      "metadata": {
+        "description": "Name of your Azure Container Registry"
+      }
+    },
+    "acrAdminUserEnabled": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Enable admin user that have push / pull permission to the registry."
+      }
+    },
+    "sku": {
+      "type": "string",
+      "defaultValue": "Basic",
+      "allowedValues": [ "Basic", "Standard", "Premium" ]
+    },
+    "isReplicationEnabled": {
+      "type": "bool",
+      "defaultValue": false
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "allowedValues": [ "eastus2", "westus2", "eastus", "westus" ],
+      "metadata": {
+        "description": "Location for all resources."
+      }
+    },
+    "replicatedregistrylocation": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "allowedValues": [ "eastus2", "westus2", "eastus", "westus" ],
+      "metadata": {
+        "description": "Location where azure container registry will be replicated"
+      }
+
+    }
+
+  },
+  "variables": {
+   },
+  "resources": [
+    {
+      "name": "[parameters('registryName')]",
+      "type": "Microsoft.ContainerRegistry/registries",
+      "apiVersion": "2017-10-01",
+      "location": "[parameters('location')]",
+      "tags": {},
+      "sku": { "name": "[parameters('sku')]" },
+      "properties": {
+        "adminUserEnabled": "[parameters('acrAdminUserEnabled')]",
+      },
+      "resources": [
+      ]
+    },
+    {
+      "condition": "[and(equals(parameters('isReplicationEnabled'), bool('true')), equals(parameters('sku'), 'Premium'))]",
+      "name": "[concat(parameters('registryName'), '/', parameters('location'))]",
+      "type": "Microsoft.ContainerRegistry/registries/replications",
+      "apiVersion": "2017-10-01",
+      "location": "[resourceGroup().location]",
+      "tags": {},
+      "scale": null,
+      "properties": {},
+      "dependsOn": [
+        "[resourceId('Microsoft.ContainerRegistry/registries', parameters('registryName'))]"
+      ]
+    },
+    {
+      "condition": "[and(equals(parameters('isReplicationEnabled'), bool('true')), equals(parameters('sku'), 'Premium'))]",
+      "name": "[concat(parameters('registryName'), '/', parameters('replicatedregistrylocation'))]",
+      "type": "Microsoft.ContainerRegistry/registries/replications",
+      "apiVersion": "2017-10-01",
+      "location": "[resourceGroup().location]",
+      "tags": {},
+      "scale": null,
+      "properties": {},
+      "dependsOn": [
+        "[resourceId('Microsoft.ContainerRegistry/registries', parameters('registryName'))]"
+      ]
+    }
+  ],
+  "outputs": {
+    "acrLoginServer": {
+      "value": "[reference(resourceId('Microsoft.ContainerRegistry/registries',parameters('registryName')),'2017-10-01').loginServer]",
+      "type": "string"
+    }
+  }
+}

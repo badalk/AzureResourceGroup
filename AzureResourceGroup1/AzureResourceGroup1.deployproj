@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|AnyCPU">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|AnyCPU">
+      <Configuration>Release</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>eaf6519f-3f59-48d9-be87-f7c3e847e129</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PrepareForBuildDependsOn>
+    </PrepareForBuildDependsOn>
+  </PropertyGroup>
+  <Import Condition=" Exists('Deployment.targets') " Project="Deployment.targets" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+  <!-- vertag<:>start tokens<:>maj.min -->
+  <Import Condition=" Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Deployment\1.1\DeploymentProject.targets') " Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Deployment\1.1\DeploymentProject.targets" />
+  <!-- vertag<:>end -->
+  <ItemGroup>
+    <None Include="asr.json" />
+    <Content Include="azuredeploy-acr-temp.parameters.json" />
+    <Content Include="azuredeploy-acr-temp.json" />
+    <None Include="azuresql.json" />
+    <None Include="azuresql.parameters.json" />
+    <None Include="Deployment.targets">
+      <Visible>False</Visible>
+    </None>
+    <Content Include="Deploy-AzureResourceGroup.ps1" />
+    <Content Include="rg-network\network.json" />
+    <Content Include="rg-network\network.parameters.json" />
+    <Content Include="rg-application1\server.json" />
+    <Content Include="rg-application1\appserver1.parameters.json" />
+    <Content Include="rg-application1\storageac.json" />
+    <Content Include="rg-application1\storageac.parameters.json" />
+    <Content Include="rg-application1\keyvault.json" />
+    <Content Include="rg-application1\keyvault.parameters.json" />
+    <Content Include="rg-AKS\azuredeploy-acr.json" />
+    <Content Include="rg-AKS\azuredeploy-acr.parameters.json" />
+    <None Include="rg-AKS\azuredeploy-aks.json" />
+    <None Include="rg-windowssvr\WindowsVirtualMachine.json" />
+    <None Include="rg-windowssvr\WindowsVirtualMachine.parameters.json" />
+    <None Include="roottemplate.json" />
+  </ItemGroup>
+  <Target Name="GetReferenceAssemblyPaths" />
+</Project>

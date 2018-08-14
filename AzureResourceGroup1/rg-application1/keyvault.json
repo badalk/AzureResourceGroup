@@ -1,0 +1,114 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "adminObjectId": {
+      "type": "string",
+      "metadata": {
+        "description": "Object id of AD group or the User who is the admin for the Keyvault"
+      }
+    },
+    "keyVaultName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the Keyvault"
+      }
+    },
+    "keyVaultSecretName": {
+      "type": "string",
+      "defaultValue": "vmPwdKVSecret"
+    }
+  },
+
+  "resources": [
+    {
+      "name": "[parameters('keyVaultName')]",
+      "type": "Microsoft.KeyVault/vaults",
+      "apiVersion": "2016-10-01",
+      "location": "East US 2",
+      "tags": {},
+      "properties": {
+        "accessPolicies": [
+          {
+            "tenantId": "[subscription().tenantId]",
+            "objectId": "[parameters('adminObjectId')]",
+            "permissions": {
+              "keys": [
+                "get",
+                "list",
+                "update",
+                "create",
+                "import",
+                "delete",
+                "recover",
+                "backup",
+                "restore"
+              ],
+              "secrets": [
+                "get",
+                "list",
+                "set",
+                "delete",
+                "recover",
+                "backup",
+                "restore"
+              ],
+              "certificates": [
+                "get",
+                "list",
+                "update",
+                "create",
+                "import",
+                "delete",
+                "recover",
+                "managecontacts",
+                "manageissuers",
+                "getissuers",
+                "listissuers",
+                "setissuers",
+                "deleteissuers"
+              ]
+            }
+          }
+        ],
+        "enabledForDeployment": true,
+        "enabledForDiskEncryption": true,
+        "enabledForTemplateDeployment": true,
+        "sku": {
+          "family": "A",
+          "name": "standard"
+        },
+        "tenantId": "[subscription().tenantId]"
+      }
+    },
+
+    {
+      "comments": "Generalized from resource: '/subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourceGroups/rg-application1/providers/Microsoft.KeyVault/vaults/vmcreds-keyvault/secrets/vmpwd'.",
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "name": "[concat(parameters('keyVaultName'), '/', parameters('keyVaultSecretName'))]",
+      "apiVersion": "2016-10-01",
+      "location": "East US 2",
+      "scale": null,
+      "properties": {
+        "attributes": {
+          "enabled": true
+        },
+        "value": "[concat(substring(uniqueString(resourceGroup().id),0,6), substring(uniqueString(subscription().id),0,6))]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.KeyVault/vaults', parameters('keyVaultName'))]"
+      ]
+    }
+  ],
+
+  "outputs": {
+    "reference": {
+      "type": "object",
+      "value": "[reference(concat('Microsoft.KeyVault/vaults/',parameters('keyVaultName')),'2015-06-01')]"
+    },
+    "id": {
+      "type": "string",
+      "value": "[resourceId(subscription().subscriptionId, resourceGroup().name,'Microsoft.KeyVault/vaults/',parameters('keyVaultName'))]"
+    }
+  }
+}
