@@ -50,7 +50,7 @@ Describe "Azure Container Registry Deployment Tests" {
 	#	}
 	#}
 
-	Context "Check for Valid Parameter Values" {
+	Context "Check for Valid Parameter Values"  {
 
 		it ("Container Registry location parameter passed must be within allowed values"){
 			$PassedParameters.location | should -BeIn $TemplateParameters.location.allowedValues
@@ -78,7 +78,13 @@ Describe "Azure Container Registry Deployment Tests" {
 				-ErrorAction Stop `
 					5>&1
 
-		$result = (($output[32] -split "Body:")[1] | ConvertFrom-Json).properties
+		$responseItem = $output -like "*HTTP RESPONSE*"
+		#Write-Output $responseItem
+
+		$httpresponse = ($responseItem -split "Body:")[1]
+		Write-Output $httpresponse
+
+		$result = ($httpresponse | ConvertFrom-Json).properties
 
 		It "ACR deployment should succeed" {
 			$result.provisioningState | Should -Be "Succeeded"
