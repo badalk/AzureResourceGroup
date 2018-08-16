@@ -55,7 +55,7 @@
       "tags": {},
       "sku": { "name": "[parameters('sku')]" },
       "properties": {
-        "adminUserEnabled": "[parameters('acrAdminUserEnabled')]",
+        "adminUserEnabled": "[parameters('acrAdminUserEnabled')]"
       },
       "resources": [
       ]

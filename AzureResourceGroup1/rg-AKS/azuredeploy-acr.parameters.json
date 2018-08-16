@@ -6,7 +6,7 @@
       "value": "aksacrregistry"
     },
     "sku": {
-      "value": "Standard"
+      "value": "Premium"
     },
     "acrAdminUserEnabled": {
       "value": true

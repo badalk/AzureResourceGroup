@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-results xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="nunit_schema_2.5.xsd" name="Pester" total="6" errors="0" failures="0" not-run="0" inconclusive="2" ignored="0" skipped="0" invalid="0" date="2018-08-16" time="11:12:39">
+  <environment user="M1000700" machine-name="E1ML19099" cwd="C:\MyWork\Azure\ARM\ARM-FirstSample\AzureResourceGroup1" user-domain="MINDTREE" platform="Microsoft Windows 10 Enterprise|C:\WINDOWS|\Device\Harddisk0\Partition4" nunit-version="2.5.8.0" os-version="10.0.17134" clr-version="4.0.30319.42000" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite type="TestFixture" name="Pester" executed="True" result="Inconclusive" success="True" time="2.7208" asserts="0" description="Pester">
+    <results>
+      <test-suite type="TestFixture" name="C:\MyWork\Azure\ARM\ARM-FirstSample\AzureResourceGroup1\AzureResourceGroup1\rg-AKS\azuredeploy-acr.tests.ps1" executed="True" result="Inconclusive" success="True" time="2.7208" asserts="0" description="C:\MyWork\Azure\ARM\ARM-FirstSample\AzureResourceGroup1\AzureResourceGroup1\rg-AKS\azuredeploy-acr.tests.ps1">
+        <results>
+          <test-suite type="TestFixture" name="Azure Container Registry Deployment Tests" executed="True" result="Inconclusive" success="True" time="2.7208" asserts="0" description="Azure Container Registry Deployment Tests">
+            <results>
+              <test-suite type="TestFixture" name="Check for Valid Parameter Values" executed="True" result="Success" success="True" time="0.1409" asserts="0" description="Check for Valid Parameter Values">
+                <results>
+                  <test-suite type="TestFixture" name="Container Registry Replication Parameters Tests" executed="True" result="Success" success="True" time="0.043" asserts="0" description="Container Registry Replication Parameters Tests">
+                    <results>
+                      <test-case description="Container Registry Replication Location parameter must be different than the provisioning location" name="Azure Container Registry Deployment Tests.Check for Valid Parameter Values.Container Registry Replication Parameters Tests.Container Registry Replication Location parameter must be different than the provisioning location" time="0.0335" asserts="0" success="True" result="Success" executed="True" />
+                      <test-case description="Container Registry Replication Location parameter must be within allowed values" name="Azure Container Registry Deployment Tests.Check for Valid Parameter Values.Container Registry Replication Parameters Tests.Container Registry Replication Location parameter must be within allowed values" time="0.0095" asserts="0" success="True" result="Success" executed="True" />
+                    </results>
+                  </test-suite>
+                  <test-case description="Container Registry location parameter passed must be within allowed values" name="Azure Container Registry Deployment Tests.Check for Valid Parameter Values.Container Registry location parameter passed must be within allowed values" time="0.0979" asserts="0" success="True" result="Success" executed="True" />
+                </results>
+              </test-suite>
+              <test-suite type="TestFixture" name="When Azure Container Registry (ACR) is deployed with valid parameters" executed="True" result="Inconclusive" success="True" time="2.5799" asserts="0" description="When Azure Container Registry (ACR) is deployed with valid parameters">
+                <results>
+                  <test-case description="ACR deployment should succeed" name="Azure Container Registry Deployment Tests.When Azure Container Registry (ACR) is deployed with valid parameters.ACR deployment should succeed" time="2.5729" asserts="0" success="True" result="Success" executed="True" />
+                  <test-case description="If service tier is not premium - no registry relication irrespective of isReplicationEnabled is set to true or false" name="Azure Container Registry Deployment Tests.When Azure Container Registry (ACR) is deployed with valid parameters.If service tier is not premium - no registry relication irrespective of isReplicationEnabled is set to true or false" time="0.0037" asserts="0" success="True" result="Inconclusive" executed="True" />
+                  <test-case description="If service tier is premium then only allow replicated regions" name="Azure Container Registry Deployment Tests.When Azure Container Registry (ACR) is deployed with valid parameters.If service tier is premium then only allow replicated regions" time="0.0033" asserts="0" success="True" result="Inconclusive" executed="True" />
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>
