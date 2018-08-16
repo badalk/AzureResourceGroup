@@ -18,6 +18,8 @@
 x64/
 x86/
 bld/
+hooks/
+info/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
