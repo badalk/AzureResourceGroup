@@ -87,7 +87,7 @@ Describe "Azure Container Registry Deployment Tests" {
 		#Write-Output $responseItem
 
 		$httpresponse = ($responseItem -split "Body:")[1]
-		Write-Output $httpresponse
+		#Write-Output $httpresponse
 
 		$result = ($httpresponse | ConvertFrom-Json).properties
 
