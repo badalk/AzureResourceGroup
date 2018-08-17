@@ -15,16 +15,17 @@ Describe "Azure Container Registry Deployment Tests" {
 	# #################
 
 	#$PassedParameters = (get-content "$TemplateParameterFile" | ConvertFrom-Json -ErrorAction SilentlyContinue).parameters
-	$currentPath = Split-Path $MyInvocation.MyCommand.Name
-	$TemplateFileName = $currentPath.Replace("Tests.ps1", "json") #Getting ARM template file name (extension is json)
+	$currentPath = Split-Path $MyInvocation.MyCommand.Path
+	$TemplateFileName = $MyInvocation.MyCommand.Name.Replace("Tests.ps1", "json") #Getting ARM template file name (extension is json)
 	Write-Output "TemplateFileName: ${TemplateFileName}"
-	$TemplateFile = "${PSScriptRoot}\${TemplateFileName}"
+	$TemplateFile = "${currentPath}\${TemplateFileName}"
 	Write-Output "TemplateFile: ${TemplateFile}"
 	$TemplateParameterDefinitions = (get-content "$TemplateFile" | ConvertFrom-Json -ErrorAction SilentlyContinue).parameters
 
 	#Load Test Data
 	#Load data based on the data file as per the convention
-	$TestsDataFile = $currentPath.Replace("ps1", "Data.json") #Getting Tests Data file name (extension is json)
+	$TestDataFileName = $MyInvocation.MyCommand.Name.Replace("ps1", "Data.json") #Getting Tests Data file name (extension is json)
+	$TestDataFile = "${currentPath}\${$TestDataFileName}"
 	$PassedParameters = (Get-Content -Raw -Path $TestsDataFile) | ConvertFrom-Json
 
 	#Determine if we should we skip replication test cases
