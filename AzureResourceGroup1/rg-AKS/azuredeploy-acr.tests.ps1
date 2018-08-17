@@ -23,6 +23,7 @@ Describe "Azure Container Registry Deployment Tests" {
 	Write-Host ("TemplateFileName: " + ${TemplateFileName})
 	$TemplateFile = "${currentPath}\${TemplateFileName}"
 	Write-Host ("TemplateFile: " + ${TemplateFile})
+	Write-Host ("PSScriptRoot: " + ${PSScriptRoot})
 	$TemplateParameterDefinitions = (get-content -Raw -Path $TemplateFile | ConvertFrom-Json).parameters
 
 	#Load Test Data
