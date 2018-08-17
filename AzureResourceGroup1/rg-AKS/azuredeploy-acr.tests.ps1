@@ -31,10 +31,10 @@ Describe "Azure Container Registry Deployment Tests" {
 	#Load Test Data
 	#Load data based on the data file as per the convention
 	$TestDataFileName = $TestFileName.Replace("ps1", "Data.json") #Getting Tests Data file name (extension is json)
-	Write-Output "TestDataFileName: ${TestDataFileName}"
+	Write-Host "TestDataFileName: ${TestDataFileName}"
 	$TestDataFile = "${currentPath}\${$TestDataFileName}"
-	Write-Output ("TestDataFile: " + $TestDataFile)
-	$PassedParameters = (Get-Content -Raw -Path $TestsDataFile) | ConvertFrom-Json
+	Write-Host ("TestDataFile: " + $TestDataFile)
+	$PassedParameters = (Get-Content -Raw -Path $TestDataFile) | ConvertFrom-Json
 
 	#Determine if we should we skip replication test cases
 	$IsReplicationEnabled = ($PassedParameters.isReplicationEnabled) -and ($PassedParameters.sku -eq 'Premium')
