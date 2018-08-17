@@ -20,10 +20,11 @@ Describe "Azure Container Registry Deployment Tests" {
     $cmdName = $MyInvocation.MyCommand.Name
 	Write-Host ("cmdName:" + $cmdName)
 	$TemplateFileName = $cmdName.Replace("Tests.ps1", "json") #Getting ARM template file name (extension is json)
-	Write-Host ("TemplateFileName: " + ${TemplateFileName})
+	Write-Host ("TemplateFileName: " + $TemplateFileName)
 	$TemplateFile = "${currentPath}\${TemplateFileName}"
-	Write-Host ("TemplateFile: " + ${TemplateFile})
-	Write-Host ("PSScriptRoot: " + ${PSScriptRoot})
+	Write-Host ("TemplateFile: " + $TemplateFile)
+	Write-Host ("PSScriptRoot: " + $PSScriptRoot)
+	Write-Host ("Script Name: " + $MyInvocation.ScriptName)
 	$TemplateParameterDefinitions = (get-content -Raw -Path $TemplateFile | ConvertFrom-Json).parameters
 
 	#Load Test Data
