@@ -7,7 +7,7 @@
 Describe "Azure Container Registry Deployment Tests" {
 	#Arrange
 	#$PassedParameters = (get-content "$TemplateParameterFile" | ConvertFrom-Json -ErrorAction SilentlyContinue).parameters
-	Write-Output $PassedParameters.location
+
 	$TemplateParameters = (get-content "$TemplateFile" | ConvertFrom-Json -ErrorAction SilentlyContinue).parameters
 	$IsReplicationEnabled = ($PassedParameters.isReplicationEnabled) -and ($PassedParameters.sku -eq 'Premium')
 	$Skiptests = @{ 'Skip' = !$IsReplicationEnabled }
@@ -15,6 +15,7 @@ Describe "Azure Container Registry Deployment Tests" {
 	BeforeAll { #Enable DebugPreference to Continue to capture Debug info
 		$DebugPreference = "Continue"
 
+		#Login with Azure account
 		$accountName ="http://azure-cli-2018-08-09-15-12-39"
 		$password = ConvertTo-SecureString "f1c35295-8e9a-4f7c-a753-57b9d15dc70e" -AsPlainText -Force
 		$credential = New-Object System.Management.Automation.PSCredential($accountName, $password)
