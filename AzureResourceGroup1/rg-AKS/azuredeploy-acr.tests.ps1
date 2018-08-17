@@ -14,18 +14,12 @@ Describe "Azure Container Registry Deployment Tests" {
 	# ## Arrange ##
 	# #################
 
-	##$PassedParameters = (get-content "$TemplateParameterFile" | ConvertFrom-Json -ErrorAction SilentlyContinue).parameters
-	#$currentPath = $MyInvocation.PSCommandPath
-	##Write-Host ("currentPath" + $currentPath)
-	#$cmdName = $MyInvocation.MyCommand.Name
-	##Write-Host ("cmdName:" + $cmdName)
 	$TestFileName = "azuredeploy-acr.Tests.ps1"
-	$TemplateFileName = $TestFileName.Replace("Tests.ps1", "json") #Getting ARM template file name (extension is json)
-	#Write-Host ("TemplateFileName: " + $TemplateFileName)
+	#Getting ARM template file name (extension is json)
+	$TemplateFileName = $TestFileName.Replace("Tests.ps1", "json") 
 	$currentPath = $PSScriptRoot
 	$TemplateFile = "${currentPath}\${TemplateFileName}"
 	Write-Host ("TemplateFile: " + $TemplateFile)
-	#Write-Host ("Script Name: " + $MyInvocation.ScriptName)
 	$TemplateParameterDefinitions = (get-content -Raw -Path $TemplateFile | ConvertFrom-Json).parameters
 
 	#Load Test Data
@@ -34,9 +28,14 @@ Describe "Azure Container Registry Deployment Tests" {
 	Write-Host "TestDataFileName: ${TestDataFileName}"
 	$TestDataFile = "${currentPath}\${TestDataFileName}"
 	Write-Host ("TestDataFile: " + $TestDataFile)
-	$PassedParameters = (Get-Content -Raw -Path $TestDataFile) | ConvertFrom-Json
+	$ParameterSet = (Get-Content -Raw -Path $TestDataFile) | ConvertFrom-Json
+	
+	#convert PassedParameters to hashtable
+	$ht2 = @{}
+	$ParameterSet.psobject.properties | Foreach { $ht2[$_.Name] = $_.Value }
+	$PassedParameters = $ht2.SyncRoot
 
-	#Determine if we should we skip replication test cases
+	#Determine if we should skip replication test cases
 	$IsReplicationEnabled = ($PassedParameters.isReplicationEnabled) -and ($PassedParameters.sku -eq 'Premium')
 	$Skiptests = @{ 'Skip' = !$IsReplicationEnabled }
 
@@ -90,17 +89,17 @@ Describe "Azure Container Registry Deployment Tests" {
 
 		it ("Container Registry location parameter passed must be within allowed values") -TestCases $PassedParameters {
 			Param($param)
-			$param.location | should -BeIn $TemplateParameterDefinitions.location.allowedValues
+			$param.parameters.location | should -BeIn $TemplateParameterDefinitions.location.allowedValues
 		}
 
 		it @Skiptests ("Container Registry Replication Location parameter must be different than the provisioning location")-TestCases $PassedParameters {
 			Param($param)
-			$param.replicatedregistrylocation | should -Not -Be $PassedParameters.location.value
+			$param.parameters.replicatedregistrylocation | should -Not -Be $param.parameters.location
 		}
 
 		it @Skiptests ("Container Registry Replication Location parameter must be within allowed values")-TestCases $PassedParameters {
 			Param($param)
-			$param.replicatedregistrylocation | should -BeIn $TemplateParameterDefinitions.replicatedregistrylocation.allowedValues
+			$param.parameters.replicatedregistrylocation | should -BeIn $TemplateParameterDefinitions.replicatedregistrylocation.allowedValues
 		}
 
 	}
