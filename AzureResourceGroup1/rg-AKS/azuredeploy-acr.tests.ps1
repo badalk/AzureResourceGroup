@@ -15,7 +15,7 @@ Describe "Azure Container Registry Deployment Tests" {
 	# #################
 
 	#$PassedParameters = (get-content "$TemplateParameterFile" | ConvertFrom-Json -ErrorAction SilentlyContinue).parameters
-	$currentPath = Split-Path $MyInvocation.MyCommand.Path
+	$currentPath = $MyInvocation.MyCommand.Path
 	$TemplateFileName = $MyInvocation.MyCommand.Name.Replace("Tests.ps1", "json") #Getting ARM template file name (extension is json)
 	Write-Output "TemplateFileName: ${TemplateFileName}"
 	$TemplateFile = "${currentPath}\${TemplateFileName}"
