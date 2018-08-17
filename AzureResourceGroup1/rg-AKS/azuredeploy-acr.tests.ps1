@@ -15,6 +15,11 @@ Describe "Azure Container Registry Deployment Tests" {
 	BeforeAll { #Enable DebugPreference to Continue to capture Debug info
 		$DebugPreference = "Continue"
 
+		$accountName ="http://azure-cli-2018-08-09-15-12-39"
+		$password = ConvertTo-SecureString "f1c35295-8e9a-4f7c-a753-57b9d15dc70e" -AsPlainText -Force
+		$credential = New-Object System.Management.Automation.PSCredential($accountName, $password)
+		Connect-AzureRmAccount -ServicePrincipal -Credential $credential -TenantId "b25fcb44-9c49-413c-9fdc-b59b39447b84"
+
 	}
 
 
