@@ -15,7 +15,7 @@ Describe "Azure Container Registry Deployment Tests" {
 	# #################
 
 	#$PassedParameters = (get-content "$TemplateParameterFile" | ConvertFrom-Json -ErrorAction SilentlyContinue).parameters
-	$currentPath = $MyInvocation.MyCommand.Path
+	$currentPath = $MyInvocation.PSCommandPath
 	Write-Host ("currentPath" + $currentPath)
     $cmdName = $MyInvocation.MyCommand.Name
 	Write-Host ("cmdName:" + $cmdName)
