@@ -22,7 +22,7 @@ Describe "Azure Container Registry Deployment Tests" {
 	$TemplateFile = "${currentPath}\${TemplateFileName}"
 	Write-Output $TemplateFile
 	Write-Output "TemplateFile: ${TemplateFile}"
-	$TemplateParameterDefinitions = (get-content "$TemplateFile" | ConvertFrom-Json -ErrorAction SilentlyContinue).parameters
+	$TemplateParameterDefinitions = (get-content -Raw -Path $TemplateFile | ConvertFrom-Json).parameters
 
 	#Load Test Data
 	#Load data based on the data file as per the convention
