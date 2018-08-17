@@ -14,26 +14,26 @@ Describe "Azure Container Registry Deployment Tests" {
 	# ## Arrange ##
 	# #################
 
-	#$PassedParameters = (get-content "$TemplateParameterFile" | ConvertFrom-Json -ErrorAction SilentlyContinue).parameters
-	$currentPath = $MyInvocation.PSCommandPath
-	Write-Host ("currentPath" + $currentPath)
-    $cmdName = $MyInvocation.MyCommand.Name
-	Write-Host ("cmdName:" + $cmdName)
-	$TemplateFileName = $cmdName.Replace("Tests.ps1", "json") #Getting ARM template file name (extension is json)
-	Write-Host ("TemplateFileName: " + $TemplateFileName)
+	##$PassedParameters = (get-content "$TemplateParameterFile" | ConvertFrom-Json -ErrorAction SilentlyContinue).parameters
+	#$currentPath = $MyInvocation.PSCommandPath
+	##Write-Host ("currentPath" + $currentPath)
+	#$cmdName = $MyInvocation.MyCommand.Name
+	##Write-Host ("cmdName:" + $cmdName)
+	$TestFileName = "azuredeploy-acr.Tests.ps1"
+	$TemplateFileName = $TestFileName.Replace("Tests.ps1", "json") #Getting ARM template file name (extension is json)
+	#Write-Host ("TemplateFileName: " + $TemplateFileName)
+	$currentPath = $PSScriptRoot
 	$TemplateFile = "${currentPath}\${TemplateFileName}"
 	Write-Host ("TemplateFile: " + $TemplateFile)
-	Write-Host ("PSScriptRoot: " + $PSScriptRoot)
-	Write-Host ("Script Name: " + $MyInvocation.ScriptName)
+	#Write-Host ("Script Name: " + $MyInvocation.ScriptName)
 	$TemplateParameterDefinitions = (get-content -Raw -Path $TemplateFile | ConvertFrom-Json).parameters
 
 	#Load Test Data
 	#Load data based on the data file as per the convention
-	$TestDataFileName = $cmdName.Replace("ps1", "Data.json") #Getting Tests Data file name (extension is json)
+	$TestDataFileName = $TestFileName.Replace("ps1", "Data.json") #Getting Tests Data file name (extension is json)
 	Write-Output "TestDataFileName: ${TestDataFileName}"
 	$TestDataFile = "${currentPath}\${$TestDataFileName}"
-	Write-Output $TestDataFile
-	Write-Output "TestDataFile: ${TestDataFile}"
+	Write-Output ("TestDataFile: " + $TestDataFile)
 	$PassedParameters = (Get-Content -Raw -Path $TestsDataFile) | ConvertFrom-Json
 
 	#Determine if we should we skip replication test cases
