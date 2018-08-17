@@ -32,7 +32,7 @@ Describe "Azure Container Registry Deployment Tests" {
 	#Load data based on the data file as per the convention
 	$TestDataFileName = $TestFileName.Replace("ps1", "Data.json") #Getting Tests Data file name (extension is json)
 	Write-Host "TestDataFileName: ${TestDataFileName}"
-	$TestDataFile = "${currentPath}\${$TestDataFileName}"
+	$TestDataFile = "${currentPath}\${TestDataFileName}"
 	Write-Host ("TestDataFile: " + $TestDataFile)
 	$PassedParameters = (Get-Content -Raw -Path $TestDataFile) | ConvertFrom-Json
 
