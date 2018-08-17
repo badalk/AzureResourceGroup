@@ -16,7 +16,9 @@ Describe "Azure Container Registry Deployment Tests" {
 
 	#$PassedParameters = (get-content "$TemplateParameterFile" | ConvertFrom-Json -ErrorAction SilentlyContinue).parameters
 	$TemplateFileName = $MyInvocation.MyCommand.Name.Replace("Tests.ps1", "json") #Getting ARM template file name (extension is json)
+	Write-Output "TemplateFileName: ${TemplateFileName}"
 	$TemplateFile = "${PSScriptRoot}\${TemplateFileName}"
+	Write-Output "TemplateFile: ${TemplateFile}"
 	$TemplateParameterDefinitions = (get-content "$TemplateFile" | ConvertFrom-Json -ErrorAction SilentlyContinue).parameters
 
 	#Load Test Data
