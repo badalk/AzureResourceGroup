@@ -16,7 +16,10 @@ Describe "Azure Container Registry Deployment Tests" {
 
 	#$PassedParameters = (get-content "$TemplateParameterFile" | ConvertFrom-Json -ErrorAction SilentlyContinue).parameters
 	$currentPath = $MyInvocation.MyCommand.Path
-	$TemplateFileName = $MyInvocation.MyCommand.Name.Replace("Tests.ps1", "json") #Getting ARM template file name (extension is json)
+	Write-Host ("$currentPath" + $currentPath)
+    $cmdName = $MyInvocation.MyCommand.Name
+	Write-Host ("cmdName:" + $cmdName)
+	$TemplateFileName = $cmdName.Replace("Tests.ps1", "json") #Getting ARM template file name (extension is json)
 	Write-Output $TemplateFileName
 	Write-Output "TemplateFileName: ${TemplateFileName}"
 	$TemplateFile = "${currentPath}\${TemplateFileName}"
@@ -26,7 +29,7 @@ Describe "Azure Container Registry Deployment Tests" {
 
 	#Load Test Data
 	#Load data based on the data file as per the convention
-	$TestDataFileName = $MyInvocation.MyCommand.Name.Replace("ps1", "Data.json") #Getting Tests Data file name (extension is json)
+	$TestDataFileName = $cmdName.Replace("ps1", "Data.json") #Getting Tests Data file name (extension is json)
 	Write-Output "TestDataFileName: ${TestDataFileName}"
 	$TestDataFile = "${currentPath}\${$TestDataFileName}"
 	Write-Output $TestDataFile
