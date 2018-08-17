@@ -1,7 +1,12 @@
 ﻿Param(
-  [string] [Parameter(Mandatory=$true)] $ResourceGroupName
+  [string] [Parameter(Mandatory=$true)] $ResourceGroupName,
   #[string] [Parameter(Mandatory=$true)] $TemplateFile,
   #[hashtable] [Parameter(Mandatory=$true)] $PassedParameters
+  [string] [Parameter(Mandatory=$true)] $accountName,
+  [string] [Parameter(Mandatory=$true)] $password,
+  [string] [Parameter(Mandatory=$true)] $tenantId
+
+
 )
 
 Describe "Azure Container Registry Deployment Tests" {
@@ -27,10 +32,9 @@ Describe "Azure Container Registry Deployment Tests" {
 		$DebugPreference = "Continue"
 
 		#Login with Azure account
-		$accountName ="http://azure-cli-2018-08-09-15-12-39"
-		$password = ConvertTo-SecureString "f1c35295-8e9a-4f7c-a753-57b9d15dc70e" -AsPlainText -Force
+		$pwd = ConvertTo-SecureString $password -AsPlainText -Force
 		$credential = New-Object System.Management.Automation.PSCredential($accountName, $password)
-		Connect-AzureRmAccount -ServicePrincipal -Credential $credential -TenantId "b25fcb44-9c49-413c-9fdc-b59b39447b84"
+		Connect-AzureRmAccount -ServicePrincipal -Credential $credential -TenantId $tenantId
 
 	}
 
