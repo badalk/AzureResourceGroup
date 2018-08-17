@@ -33,7 +33,7 @@ Describe "Azure Container Registry Deployment Tests" {
 
 		#Login with Azure account
 		$pwd = ConvertTo-SecureString $password -AsPlainText -Force
-		$credential = New-Object System.Management.Automation.PSCredential($accountName, $password)
+		$credential = New-Object System.Management.Automation.PSCredential($accountName, $pwd)
 		Connect-AzureRmAccount -ServicePrincipal -Credential $credential -TenantId $tenantId
 
 	}
