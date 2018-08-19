@@ -22,22 +22,8 @@ Describe "Azure Container Registry Deployment Tests" {
 	Write-Host ("TemplateFile: " + $TemplateFile)
 	$TemplateParameterDefinitions = (get-content -Raw -Path $TemplateFile | ConvertFrom-Json).parameters
 
-	#Load Test Data
-	#Load data based on the data file as per the convention
-	$TestDataFileName = $TestFileName.Replace("ps1", "Data.json") #Getting Tests Data file name (extension is json)
-	Write-Host "TestDataFileName: ${TestDataFileName}"
-	$TestDataFile = "${currentPath}\${TestDataFileName}"
-	Write-Host ("TestDataFile: " + $TestDataFile)
-	$ParameterSet = (Get-Content -Raw -Path $TestDataFile) | ConvertFrom-Json
 	
-	#convert PassedParameters to hashtable
-	$ht2 = @{}
-	$ParameterSet.psobject.properties | Foreach { $ht2[$_.Name] = $_.Value }
-	$PassedParameters = $ht2.SyncRoot
 
-	#Determine if we should skip replication test cases
-	$IsReplicationEnabled = ($PassedParameters.isReplicationEnabled) -and ($PassedParameters.sku -eq 'Premium')
-	$Skiptests = @{ 'Skip' = !$IsReplicationEnabled }
 
 	BeforeAll { #Enable DebugPreference to Continue to capture Debug info
 		$DebugPreference = "Continue"
@@ -47,11 +33,27 @@ Describe "Azure Container Registry Deployment Tests" {
 		$credential = New-Object System.Management.Automation.PSCredential($accountName, $pwd)
 		Connect-AzureRmAccount -ServicePrincipal -Credential $credential -TenantId $tenantId
 
+		#Load Test Data
+		#Load data based on the data file as per the convention
+		$TestDataFileName = $TestFileName.Replace("ps1", "Data.json") #Getting Tests Data file name (extension is json)
+		Write-Host "TestDataFileName: ${TestDataFileName}"
+		$TestDataFile = "${currentPath}\${TestDataFileName}"
+		Write-Host ("TestDataFile: " + $TestDataFile)
+		$ParameterSet = (Get-Content -Raw -Path $TestDataFile) | ConvertFrom-Json
+	
+		#convert PassedParameters to hashtable
+		$ht2 = @{}
+		$ParameterSet.psobject.properties | Foreach { $ht2[$_.Name] = $_.Value }
+		$PassedParameters = $ht2.SyncRoot
+
+
 	}
 
 
 	Beforeeach {
-
+		#Determine if we should skip replication test cases
+		#$IsReplicationEnabled = ($PassedParameters.isReplicationEnabled) -and ($PassedParameters.sku -eq 'Premium')
+		#$Skiptests = @{ 'Skip' = !$IsReplicationEnabled }
 	}
 
 	Aftereach{
@@ -92,15 +94,17 @@ Describe "Azure Container Registry Deployment Tests" {
 			$param.parameters.location | should -BeIn $TemplateParameterDefinitions.location.allowedValues
 		}
 
-		it @Skiptests ("Container Registry Replication Location parameter must be different than the provisioning location")-TestCases $PassedParameters {
-			Param($param)
-			$param.parameters.replicatedregistrylocation | should -Not -Be $param.parameters.location
-		}
+		#it  ("Container Registry Replication Location parameter must be different than the provisioning location") -TestCases $PassedParameters {
+		#	Param($param)
+		#	$IsReplicationEnabled = ($param.isReplicationEnabled) -and ($param.sku -eq 'Premium')
+						
+		#	$param.parameters.replicatedregistrylocation | should -Not -Be $param.parameters.location
+		#}
 
-		it @Skiptests ("Container Registry Replication Location parameter must be within allowed values")-TestCases $PassedParameters {
-			Param($param)
-			$param.parameters.replicatedregistrylocation | should -BeIn $TemplateParameterDefinitions.replicatedregistrylocation.allowedValues
-		}
+		#it ("Container Registry Replication Location parameter must be within allowed values")-TestCases $PassedParameters {
+		#	Param($param)
+		#	$param.parameters.replicatedregistrylocation | should -BeIn $TemplateParameterDefinitions.replicatedregistrylocation.allowedValues
+		#}
 
 	}
 
@@ -124,11 +128,11 @@ Describe "Azure Container Registry Deployment Tests" {
 				$result.provisioningState | Should -Be "Succeeded"
 			}
 
-			It "If service tier is not premium - no registry relication irrespective of isReplicationEnabled is set to true or false" {
-			
+			It "Container Registry Service is deployed" {
+				$param.validatedResources[0].type | should -Be "Microsoft.ContainerRegistry/registries"
 			}
 
-			It "If service tier is premium then only allow replicated regions" {
+			It "Container Registry Replication is setup in a different location" {
 
 			}
 		}
