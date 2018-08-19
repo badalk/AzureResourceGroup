@@ -45,6 +45,7 @@ Describe "Azure Container Registry Deployment Tests" {
 		$ht2 = @{}
 		$ParameterSet.psobject.properties | Foreach { $ht2[$_.Name] = $_.Value }
 		$PassedParameters = $ht2.SyncRoot
+		Write-Host ("PassedParameters: " + $PassedParameters)
 
 
 	}
