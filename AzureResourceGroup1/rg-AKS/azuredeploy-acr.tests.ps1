@@ -21,7 +21,7 @@ Describe "Azure Container Registry Deployment Tests" {
 	$TemplateFile = "${currentPath}\${TemplateFileName}"
 	Write-Host ("TemplateFile: " + $TemplateFile)
 	$TemplateParameterDefinitions = (get-content -Raw -Path $TemplateFile | ConvertFrom-Json).parameters
-
+	$PassedParameters = {}
 	
 
 
