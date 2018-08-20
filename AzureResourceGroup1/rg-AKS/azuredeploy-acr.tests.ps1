@@ -1,4 +1,4 @@
-﻿Import-Module .\ConvertTo-SplattedHashtable.psm1
+﻿Import-Module "${PSScriptRoot}\ConvertTo-SplattedHashtable.psm1"
 
 Param(
   [string] [Parameter(Mandatory=$true)] $ResourceGroupName,
