@@ -126,7 +126,7 @@ Describe "Azure Container Registry Deployment Tests" {
 			$replicatedregistrylocation | should -Not -Be $location
 		}
 
-		it ("Container Registry Replication Location <replicatedregistrylocation> must be within allowed values")-TestCases $PassedParameters {
+		it ("Container Registry Replication Location <replicatedregistrylocation> must be within allowed values")-TestCases $testcases {
 			Param($replicatedregistrylocation)
 			$replicatedregistrylocation | should -BeIn $TemplateParameterDefinitions.replicatedregistrylocation.allowedValues
 		}
@@ -141,7 +141,7 @@ Describe "Azure Container Registry Deployment Tests" {
 			$output = Test-AzureRmResourceGroupDeployment `
 					-ResourceGroupName $ResourceGroupName `
 					-TemplateFile $TemplateFile `
-					-TemplateParameterObject $param `
+					-TemplateParameterObject $param.Values `
 					-ErrorAction Stop `
 						5>&1
 
