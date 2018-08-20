@@ -1,6 +1,4 @@
-﻿Import-Module "${PSScriptRoot}\ConvertTo-SplattedHashtable.psm1"
-
-Param(
+﻿Param(
   [string] [Parameter(Mandatory=$true)] $ResourceGroupName,
   #[string] [Parameter(Mandatory=$true)] $TemplateFile,
   #[hashtable] [Parameter(Mandatory=$true)] $PassedParameters
@@ -15,6 +13,7 @@ Describe "Azure Container Registry Deployment Tests" {
 	# #################
 	# ## Arrange ##
 	# #################
+	Import-Module "${PSScriptRoot}\ConvertTo-SplattedHashtable.psm1"
 
 	$TestFileName = "azuredeploy-acr.Tests.ps1"
 	#Getting ARM template file name (extension is json)
