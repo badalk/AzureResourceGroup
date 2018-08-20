@@ -1,4 +1,6 @@
-﻿Param(
+﻿Import-Module .\ConvertTo-SplattedHashtable.psm1
+
+Param(
   [string] [Parameter(Mandatory=$true)] $ResourceGroupName,
   #[string] [Parameter(Mandatory=$true)] $TemplateFile,
   #[hashtable] [Parameter(Mandatory=$true)] $PassedParameters
@@ -34,18 +36,25 @@ Describe "Azure Container Registry Deployment Tests" {
 		Connect-AzureRmAccount -ServicePrincipal -Credential $credential -TenantId $tenantId
 
 		#Load Test Data
-		#Load data based on the data file as per the convention
+		##Load data based on the data file as per the convention
+		#$TestDataFileName = $TestFileName.Replace("ps1", "Data.json") #Getting Tests Data file name (extension is json)
+		#Write-Host "TestDataFileName: ${TestDataFileName}"
+		#$TestDataFile = "${currentPath}\${TestDataFileName}"
+		#Write-Host ("TestDataFile: " + $TestDataFile)
+		#$ParameterSet = (Get-Content -Raw -Path $TestDataFile) | ConvertFrom-Json
+	
+		##convert PassedParameters to hashtable
+		#$ht2 = @{}
+		#$ParameterSet.psobject.properties | Foreach { $ht2[$_.Name] = $_.Value }
+		#$PassedParameters = $ht2.SyncRoot
+		#Write-Host ("PassedParameters: " + $PassedParameters)
+
 		$TestDataFileName = $TestFileName.Replace("ps1", "Data.json") #Getting Tests Data file name (extension is json)
 		Write-Host "TestDataFileName: ${TestDataFileName}"
 		$TestDataFile = "${currentPath}\${TestDataFileName}"
 		Write-Host ("TestDataFile: " + $TestDataFile)
-		$ParameterSet = (Get-Content -Raw -Path $TestDataFile) | ConvertFrom-Json
-	
-		#convert PassedParameters to hashtable
-		$ht2 = @{}
-		$ParameterSet.psobject.properties | Foreach { $ht2[$_.Name] = $_.Value }
-		$PassedParameters = $ht2.SyncRoot
-		Write-Host ("PassedParameters: " + $PassedParameters)
+		$testcases = (Get-Content -Raw -Path $TestDataFile) | ConvertFrom-Json | ConvertTo-SplattedHashtable
+
 
 
 	}
@@ -90,22 +99,22 @@ Describe "Azure Container Registry Deployment Tests" {
 
 	Context "Check for Valid Parameter Values"  {
 
-		it ("Container Registry location parameter passed must be within allowed values") -TestCases $PassedParameters {
-			Param($param)
-			$param.parameters.location | should -BeIn $TemplateParameterDefinitions.location.allowedValues
+		it ("Container Registry location parameter <location> passed must be within allowed values") -TestCases $testcases {
+			Param($location)
+			$location | should -BeIn $TemplateParameterDefinitions.location.allowedValues
 		}
 
-		#it  ("Container Registry Replication Location parameter must be different than the provisioning location") -TestCases $PassedParameters {
-		#	Param($param)
-		#	$IsReplicationEnabled = ($param.isReplicationEnabled) -and ($param.sku -eq 'Premium')
+		it  ("Container Registry Replication Location <replicatedregistrylocation> must be different than the provisioning location <location>") -TestCases $testcases {
+			Param($location, $replicatedregistrylocation)
+			#$IsReplicationEnabled = ($param.isReplicationEnabled) -and ($param.sku -eq 'Premium')
 						
-		#	$param.parameters.replicatedregistrylocation | should -Not -Be $param.parameters.location
-		#}
+			$replicatedregistrylocation | should -Not -Be $location
+		}
 
-		#it ("Container Registry Replication Location parameter must be within allowed values")-TestCases $PassedParameters {
-		#	Param($param)
-		#	$param.parameters.replicatedregistrylocation | should -BeIn $TemplateParameterDefinitions.replicatedregistrylocation.allowedValues
-		#}
+		it ("Container Registry Replication Location <replicatedregistrylocation> must be within allowed values")-TestCases $PassedParameters {
+			Param($replicatedregistrylocation)
+			$replicatedregistrylocation | should -BeIn $TemplateParameterDefinitions.replicatedregistrylocation.allowedValues
+		}
 
 	}
 
