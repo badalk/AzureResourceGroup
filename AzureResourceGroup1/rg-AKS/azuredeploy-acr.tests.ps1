@@ -13,7 +13,11 @@ Describe "Azure Container Registry Deployment Tests" {
 	# #################
 	# ## Arrange ##
 	# #################
-	function ConvertTo-SplattedHashtable {
+
+	BeforeAll { #Enable DebugPreference to Continue to capture Debug info
+		$DebugPreference = "Continue"
+
+		function ConvertTo-SplattedHashtable {
 		[CmdletBinding()]
 		[OutputType('hashtable')]
 		param (
@@ -43,9 +47,6 @@ Describe "Azure Container Registry Deployment Tests" {
 		   $testcases
 		}
 	}
-
-	BeforeAll { #Enable DebugPreference to Continue to capture Debug info
-		$DebugPreference = "Continue"
 
 		#Login with Azure account
 		$pwd = ConvertTo-SecureString $password -AsPlainText -Force
