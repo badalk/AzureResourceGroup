@@ -15,17 +15,6 @@ Describe "Azure Container Registry Deployment Tests" {
 	# #################
 	Import-Module "${PSScriptRoot}\ConvertTo-SplattedHashtable.psm1"
 
-	$TestFileName = "azuredeploy-acr.Tests.ps1"
-	#Getting ARM template file name (extension is json)
-	$TemplateFileName = $TestFileName.Replace("Tests.ps1", "json") 
-	$currentPath = $PSScriptRoot
-	$TemplateFile = "${currentPath}\${TemplateFileName}"
-	Write-Host ("TemplateFile: " + $TemplateFile)
-	$TemplateParameterDefinitions = (get-content -Raw -Path $TemplateFile | ConvertFrom-Json).parameters
-	$PassedParameters = {}
-	
-
-
 	BeforeAll { #Enable DebugPreference to Continue to capture Debug info
 		$DebugPreference = "Continue"
 
@@ -47,6 +36,14 @@ Describe "Azure Container Registry Deployment Tests" {
 		#$ParameterSet.psobject.properties | Foreach { $ht2[$_.Name] = $_.Value }
 		#$PassedParameters = $ht2.SyncRoot
 		#Write-Host ("PassedParameters: " + $PassedParameters)
+		$TestFileName = "azuredeploy-acr.Tests.ps1"
+		#Getting ARM template file name (extension is json)
+		$TemplateFileName = $TestFileName.Replace("Tests.ps1", "json") 
+		$currentPath = $PSScriptRoot
+		$TemplateFile = "${currentPath}\${TemplateFileName}"
+		Write-Host ("TemplateFile: " + $TemplateFile)
+		$TemplateParameterDefinitions = (get-content -Raw -Path $TemplateFile | ConvertFrom-Json).parameters
+		$PassedParameters = {}
 
 		$TestDataFileName = $TestFileName.Replace("ps1", "Data.json") #Getting Tests Data file name (extension is json)
 		Write-Host "TestDataFileName: ${TestDataFileName}"
