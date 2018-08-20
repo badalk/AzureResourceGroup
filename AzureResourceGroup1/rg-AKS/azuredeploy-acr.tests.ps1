@@ -54,18 +54,6 @@ Describe "Azure Container Registry Deployment Tests" {
 		Connect-AzureRmAccount -ServicePrincipal -Credential $credential -TenantId $tenantId
 
 		#Load Test Data
-		##Load data based on the data file as per the convention
-		#$TestDataFileName = $TestFileName.Replace("ps1", "Data.json") #Getting Tests Data file name (extension is json)
-		#Write-Host "TestDataFileName: ${TestDataFileName}"
-		#$TestDataFile = "${currentPath}\${TestDataFileName}"
-		#Write-Host ("TestDataFile: " + $TestDataFile)
-		#$ParameterSet = (Get-Content -Raw -Path $TestDataFile) | ConvertFrom-Json
-	
-		##convert PassedParameters to hashtable
-		#$ht2 = @{}
-		#$ParameterSet.psobject.properties | Foreach { $ht2[$_.Name] = $_.Value }
-		#$PassedParameters = $ht2.SyncRoot
-		#Write-Host ("PassedParameters: " + $PassedParameters)
 		$TestFileName = "azuredeploy-acr.Tests.ps1"
 		#Getting ARM template file name (extension is json)
 		$TemplateFileName = $TestFileName.Replace("Tests.ps1", "json") 
@@ -79,7 +67,8 @@ Describe "Azure Container Registry Deployment Tests" {
 		Write-Host "TestDataFileName: ${TestDataFileName}"
 		$TestDataFile = "${currentPath}\${TestDataFileName}"
 		Write-Host ("TestDataFile: " + $TestDataFile)
-		$testcases = (Get-Content -Raw -Path $TestDataFile) | ConvertFrom-Json | ConvertTo-SplattedHashtable
+		$PassedParameters = (Get-Content -Raw -Path $TestDataFile) | ConvertFrom-Json 
+		$testcases = $PassedParameters | ConvertTo-SplattedHashtable
 
 
 
