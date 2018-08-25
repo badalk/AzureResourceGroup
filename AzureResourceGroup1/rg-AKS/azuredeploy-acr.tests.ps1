@@ -141,7 +141,7 @@ Describe "Azure Container Registry Deployment Tests" {
 			$output = Test-AzureRmResourceGroupDeployment `
 					-ResourceGroupName $ResourceGroupName `
 					-TemplateFile $TemplateFile `
-					-TemplateParameterObject $param.Values `
+					-TemplateParameterObject $param `
 					-ErrorAction Stop `
 						5>&1
 
@@ -157,13 +157,17 @@ Describe "Azure Container Registry Deployment Tests" {
 				$param.validatedResources[0].type | should -Be "Microsoft.ContainerRegistry/registries"
 			}
 
+			It "Ensure Container Registry Service is deployed" {
+				$param.validatedResources[0].type | should -Be "Microsoft.ContainerRegistry/registries"
+			}
+
 			It "Container Registry Replication is setup in a different location" {
 
 			}
 		}
 
 		foreach ($param in $PassedParameters){
-			UnitTest-AzureRmDeployment($param)
+			UnitTest-AzureRmDeployment($param | ConvertTo-SplattedHashtable)
 		}
 
 	}
