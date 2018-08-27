@@ -157,9 +157,9 @@ Describe "Azure Container Registry Deployment Tests" {
 				$param.validatedResources[0].type | should -Be "Microsoft.ContainerRegistry/registries"
 			}
 
-			It "Ensure Container Registry Service is deployed" {
-				$param.validatedResources[0].type | should -Be "Microsoft.ContainerRegistry/registries"
-			}
+			# It "Ensure Container Registry Service is deployed" {
+			# 	$param.validatedResources[0].type | should -Be "Microsoft.ContainerRegistry/registries"
+			# }
 
 
 			It "Container Registry Replication is setup in a different location" {
