@@ -2,11 +2,73 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+      "Cluster_Name": {
+          "type": "String"
+      },
+      "vnetSubnetId": {
+          "defaultValue": "/subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-enterprise/subnets/vnet-k8s",
+          "type": "String"
+      },
+      "logAnalyticsWorkspaceResourceID": {
+          "defaultValue": "/subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourcegroups/defaultresourcegroup-eus/providers/microsoft.operationalinsights/workspaces/defaultworkspace-4dfeb08c-7e41-40af-a9fa-fabcac401c2d-eus",
+          "type": "String"
+      }
   },
-  "variables": {
-  },
+  "variables": {},
   "resources": [
-  ],
-  "outputs": {
-  }
+      {
+          "comments": "Generalized from resource: '/subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourcegroups/rg-aks2/providers/Microsoft.ContainerService/managedClusters/myAKSCluster2'.",
+          "type": "Microsoft.ContainerService/managedClusters",
+          "name": "[parameters('Cluster_Name')]",
+          "apiVersion": "2018-03-31",
+          "location": "eastus2",
+          "scale": null,
+          "properties": {
+              "kubernetesVersion": "1.11.2",
+              "dnsPrefix": "[parameters('Cluster_Name')]",
+              "enableRBAC": true,
+              "aadProfile": { 
+                "clientAppID" : "....",
+                "serverAppID" : "....",
+                "serverAppSecret" : "...",
+                "tenantID" : "..."
+              },
+              "agentPoolProfiles": [
+                  {
+                      "name": "agentpool",
+                      "count": 2,
+                      "vmSize": "Standard_DS1_v2",
+                      "storageProfile": "ManagedDisks",
+                      "vnetSubnetID": "[parameters('vnetSubnetID')]",
+                      "maxPods": 30,
+                      "osType": "Linux"
+                  }
+              ],
+              "servicePrincipalProfile": {
+                  "clientId": "e90fe09f-21e2-4695-9e2b-53db43840147"
+              },
+              "addonProfiles": {
+                  "httpApplicationRouting": {
+                      "enabled": true,
+                      "config": {
+                          "HTTPApplicationRoutingZoneName": "1ddfdd5b79ce4f91b2a2.eastus2.aksapp.io"
+                      }
+                  },
+                  "omsagent": {
+                      "enabled": true,
+                      "config": {
+                          "logAnalyticsWorkspaceResourceID": "[parameters('logAnalyticsWorkspaceResourceID')]"
+                      }
+                  }
+              },
+              "networkProfile": {
+                  "networkPlugin": "azure",
+                  "serviceCidr": "10.0.0.0/16",
+                  "dnsServiceIP": "10.0.0.10",
+                  "dockerBridgeCidr": "172.17.0.1/16"
+              }
+          },
+          "dependsOn": []
+      }
+  ]
 }
