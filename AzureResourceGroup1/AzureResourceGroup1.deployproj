@@ -44,7 +44,8 @@
     <Content Include="rg-AKS\azuredeploy-acr.json" />
     <Content Include="rg-AKS\azuredeploy-acr.parameters.json" />
     <Content Include="rg-AKS\azuredeploy-acr.Tests.ps1" />
-    <None Include="rg-AKS\azuredeploy-aks.json" />
+    <Content Include="rg-AKS\azuredeploy-aks.json" />
+    <Content Include="rg-AKS\azuredeploy-aks.parameters.json" />
     <None Include="rg-AKS\ConvertTo-SplattedHashtable.psm1" />
     <None Include="rg-windowssvr\WindowsVirtualMachine.json" />
     <None Include="rg-windowssvr\WindowsVirtualMachine.parameters.json" />

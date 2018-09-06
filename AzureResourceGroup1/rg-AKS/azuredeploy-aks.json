@@ -14,7 +14,7 @@
       "type": "int"
     },
     "vnetSubnetId": {
-      "defaultValue": "/subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-enterprise/subnets/vnet-k8s",
+      "defaultValue": "/subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-enterprise/subnets/vnet-k8s-sub-arm",
       "type": "string"
     },
     "logAnalyticsWorkspaceResourceID": {
@@ -34,8 +34,28 @@
     "maxPods": {
       "defaultValue": 30,
       "type": "int"
+    },
+    "secretName": {
+      "defaultValue": "az-aks-arm-sp-secret",
+      "type": "string"
+    },
+    "vaultResourceGroup": {
+      "defaultValue": "rg-secrets",
+      "type": "string"
+    },
+    "vaultName": {
+      "defaultValue": "aks-sp-key-secret-vault",
+      "type": "string"
     }
-
+    //"secretSecureString": {
+    //  "reference": {
+    //    "keyVault": {
+    //      "id": "[resourceId(subscription().subscriptionId,  parameters('vaultResourceGroup'), 'Microsoft.KeyVault/vaults', parameters('vaultName'))]"
+    //    },
+    //    "secretName": "az-aks-arm-sp-secret"
+    //  },
+    //  "type": "securestring"
+    //}
   },
   "variables": {
     "clientAppID": "329469c7-33aa-4120-bc3c-0087ec59d570",
@@ -49,7 +69,7 @@
       "type": "Microsoft.ContainerService/managedClusters",
       "name": "[parameters('Cluster_Name')]",
       "apiVersion": "2018-03-31",
-      "location": "[parameters('clusterLocation')]",
+      "location": "[resourceGroup().location]",
       "scale": null,
       "properties": {
         "kubernetesVersion": "[parameters('KubernetesVersion')]",
@@ -73,14 +93,15 @@
           }
         ],
         "servicePrincipalProfile": {
-          "clientId": "e90fe09f-21e2-4695-9e2b-53db43840147"
+          "clientId": "a03158e9-58f5-4e5e-b11b-b5a2df77c661",
+          "secret": "FiS+yQNCI7GrX4jJ5ydyZOH9XmbCFCSBN70SdiwwtWg="
         },
         "addonProfiles": {
           "httpApplicationRouting": {
-            "enabled": true,
-            "config": {
-              "HTTPApplicationRoutingZoneName": "1ddfdd5b79ce4f91b2a2.eastus2.aksapp.io"
-            }
+            "enabled": true
+            //"config": {
+            //  "HTTPApplicationRoutingZoneName": "1ddfdd5b79ce4f91b2a2.eastus2.aksapp.io"
+            //}
           },
           "omsagent": {
             "enabled": true,
