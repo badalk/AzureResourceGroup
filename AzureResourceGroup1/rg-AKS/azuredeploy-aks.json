@@ -2,7 +2,7 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "Cluster_Name": {
+     "Cluster_Name": {
       "type": "string"
     },
     "KubernetesVersion": {
@@ -14,18 +14,18 @@
       "type": "int"
     },
     "vnetSubnetId": {
-      "defaultValue": "/subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-enterprise/subnets/vnet-k8s-sub-arm",
+      "defaultValue": "/subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-enterprise/subnets/vnet-k8s-arm",
       "type": "string"
     },
     "logAnalyticsWorkspaceResourceID": {
       "defaultValue": "/subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourcegroups/defaultresourcegroup-eus/providers/microsoft.operationalinsights/workspaces/defaultworkspace-4dfeb08c-7e41-40af-a9fa-fabcac401c2d-eus",
       "type": "string"
     },
-    "clusterLocation": {
-      "defaultValue": "eastus2",
-      "allowedValues": [ "eastus2", "westus2", "eastus", "westus" ],
-      "type": "string"
-    },
+    //"clusterLocation": {
+    //  "defaultValue": "eastus2",
+    //  "allowedValues": [ "eastus2", "westus2", "eastus", "westus" ],
+    //  "type": "string"
+    //},
     "nodeVMSKU": {
       "defaultValue": "Standard_DS1_v2",
       "type": "string"
@@ -34,19 +34,20 @@
     "maxPods": {
       "defaultValue": 30,
       "type": "int"
-    },
-    "secretName": {
-      "defaultValue": "az-aks-arm-sp-secret",
-      "type": "string"
-    },
-    "vaultResourceGroup": {
-      "defaultValue": "rg-secrets",
-      "type": "string"
-    },
-    "vaultName": {
-      "defaultValue": "aks-sp-key-secret-vault",
-      "type": "string"
     }
+
+    //"secretName": {
+    //  "defaultValue": "az-aks-arm-sp-secret",
+    //  "type": "string"
+    //},
+    //"vaultResourceGroup": {
+    //  "defaultValue": "rg-secrets",
+    //  "type": "string"
+    //},
+    //"vaultName": {
+    //  "defaultValue": "aks-sp-key-secret-vault",
+    //  "type": "string"
+    //}
     //"secretSecureString": {
     //  "reference": {
     //    "keyVault": {
@@ -64,8 +65,30 @@
     "tenantID": "b25fcb44-9c49-413c-9fdc-b59b39447b84"
   },
   "resources": [
+    //{
+    //  "type": "Microsoft.Resources/resourceGroups",
+    //  "apiVersion": "2018-05-01",
+    //  "location": "[parameters('resourceGroupName')]",
+    //  "name": "[parameters('resourceGroupLocation')]",
+    //  "properties": {}
+    //},
+    //{
+    //  "type": "Microsoft.Resources/deployments",
+    //  "apiVersion": "2017-05-10",
+    //  "name": "storageDeployment",
+    //  "resourceGroup": "[parameters('rgName')]",
+    //  "dependsOn": [
+    //    "[resourceId('Microsoft.Resources/resourceGroups/', parameters('resourceGroupName'))]"
+    //  ],
+    //  "properties": {
+    //    "mode": "Incremental",
+    //    "template": {
+    //      "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    //      "contentVersion": "1.0.0.0",
+    //      "parameters": {},
+    //      "variables": {},
+    //      "resources": [
     {
-      "comments": "Generalized from resource: '/subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourcegroups/rg-aks2/providers/Microsoft.ContainerService/managedClusters/myAKSCluster2'.",
       "type": "Microsoft.ContainerService/managedClusters",
       "name": "[parameters('Cluster_Name')]",
       "apiVersion": "2018-03-31",
@@ -117,7 +140,23 @@
           "dockerBridgeCidr": "172.17.0.1/16"
         }
       },
-      "dependsOn": []
+      "dependsOn": [
+        //"[resourceId('Microsoft.OperationalInsights/workspaces', concat('log-analytics',parameters('Cluster_Name')))]"
+      ]
     }
+      //{
+      //  "type": "Microsoft.OperationalInsights/workspaces",
+      //  "name": "[concat('log-analytics-',parameters('Cluster_Name'))]",
+      //  "apiVersion": "2017-03-15-preview",
+      //  "location": "[resourceGroup().location]",
+      //  "properties": {
+      //    "sku": {
+      //      "Name": "PerGB2018"
+      //    },
+      //    "features": {
+      //      "searchVersion": 1
+      //    }
+      //  }
+      //}
   ]
 }

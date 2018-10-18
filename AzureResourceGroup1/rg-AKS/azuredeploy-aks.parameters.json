@@ -3,10 +3,17 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "Cluster_Name": {
-      "value": "myakscluster3"
+      "value": "myfirstakscluster"
     },
     "numberOfNodes": {
       "value": 2
+    },
+    "vnetSubnetId": {
+      "value": "/subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-enterprise/subnets/vnet-k8s-arm"
+    },
+    "logAnalyticsWorkspaceResourceID": {
+      "value": "/subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourcegroups/defaultresourcegroup-eus/providers/microsoft.operationalinsights/workspaces/defaultworkspace-4dfeb08c-7e41-40af-a9fa-fabcac401c2d-eus"
     }
+
   }
 }

@@ -1,0 +1,16 @@
+apiVersion: "aadpodidentity.k8s.io/v1"
+kind: AzureIdentity
+metadata:
+ name: az-kvreader-identity
+spec:
+ type: 0
+ ResourceID: /subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourcegroups/MC_rg-aks-arm_myfirstakscluster_eastus2/providers/Microsoft.ManagedIdentity/userAssignedIdentities/kvreader
+ ClientID: c566d081-29df-4176-a13b-39a4ece81382
+---
+apiVersion: "aadpodidentity.k8s.io/v1"
+kind: AzureIdentityBinding
+metadata:
+ name: az-kvreader-identity-binding
+spec:
+ AzureIdentity: az-kvreader-identity
+ Selector: <label value to match in your app>
