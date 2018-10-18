@@ -57,6 +57,7 @@
     <Content Include="rg-AKS\Resources\helm-rbac.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="rg-AKS\Scripts\deploy-aks-create-cluster-admin-rolebindings.sh" />
     <None Include="rg-windowssvr\WindowsVirtualMachine.json" />
     <None Include="rg-windowssvr\WindowsVirtualMachine.parameters.json" />
     <None Include="roottemplate.json" />
