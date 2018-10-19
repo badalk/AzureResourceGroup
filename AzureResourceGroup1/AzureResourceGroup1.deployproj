@@ -58,6 +58,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="rg-AKS\Scripts\deploy-aks-create-cluster-admin-rolebindings.sh" />
+    <Content Include="rg-AKS\Scripts\k8s-ingress-controller-configuration.sh">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="rg-windowssvr\WindowsVirtualMachine.json" />
     <None Include="rg-windowssvr\WindowsVirtualMachine.parameters.json" />
     <None Include="roottemplate.json" />
