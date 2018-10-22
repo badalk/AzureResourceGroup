@@ -23,6 +23,7 @@ echo "Creating tiller service account and rolebinding ......."
 kubectl create -f "$MY_PATH/../Resources/helm-rbac.yaml"
 
 echo "Copying Kube context into helm ......."
+mkdir ~/snap/helm/common/kube
 cp -i ~/.kube/config ~/snap/helm/common/kube/
 
 echo "Install Tiller service and initialize helm ......."
