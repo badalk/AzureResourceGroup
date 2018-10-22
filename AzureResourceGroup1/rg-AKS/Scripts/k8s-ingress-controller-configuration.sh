@@ -14,10 +14,10 @@ ingressPublicIp="$(az network public-ip show -g ${nodeResourceGroup} -n aksIngre
 echo "Ingress public ip ${ingressPublicIp}"
 
 echo "Install helm client ......."
-snap install helm --classic
+sudo snap install helm --classic
 
 echo "Creating tiller service account and rolebinding ......."
-kubectl create -f /../Resources/helm-rbac.yaml
+kubectl create -f ../Resources/helm-rbac.yaml
 
 echo "Copying Kube context into helm ......."
 cp -i ~/.kube/config ~/snap/helm/common/kube/
@@ -25,5 +25,5 @@ cp -i ~/.kube/config ~/snap/helm/common/kube/
 echo "Install Tiller service and initialize helm ......."
 helm init --service-account tiller
 
-echo "Install ingress service with poblic Ip ${ingressPublicIp}"
+echo "Install ingress service with public Ip ${ingressPublicIp}"
 helm install stable/nginx-ingress --namespace kube-system --set controller.service.loadBalancerIP="${ingressPublicIp}"
