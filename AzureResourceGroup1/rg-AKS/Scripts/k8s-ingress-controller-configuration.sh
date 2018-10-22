@@ -21,6 +21,7 @@ if [ "$?" = "0" ]; then
 
 	echo "Ingress public ip ${ingressPublicIp}"
 else
+	echo "Error Occured:"
 	error_exit "$LINENO: Cannot create public ip in node resource group ${nodeResourceGroup} for aks given resource group ${aksResourceGroup} and cluster name ${aksName}" 1>&2
 fi
 
