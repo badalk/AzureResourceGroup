@@ -16,10 +16,11 @@ echo "Ingress public ip ${ingressPublicIp}"
 echo "Install helm client ......."
 sudo snap install helm --classic
 
-echo "your Workspace is ${WORKSPACE}"
+MY_PATH="`dirname \"$0\"`"              # relative
+echo "$MY_PATH"
 
 echo "Creating tiller service account and rolebinding ......."
-kubectl create -f "${WORKSPAE}/AzureResourceGroup1/rg-AKS/Resources/helm-rbac.yaml
+kubectl create -f "$MY_PATH/../Resources/helm-rbac.yaml"
 
 echo "Copying Kube context into helm ......."
 cp -i ~/.kube/config ~/snap/helm/common/kube/
