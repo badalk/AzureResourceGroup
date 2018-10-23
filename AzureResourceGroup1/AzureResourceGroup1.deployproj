@@ -58,9 +58,14 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="rg-AKS\Scripts\deploy-aks-create-cluster-admin-rolebindings.sh" />
-    <Content Include="rg-AKS\Scripts\k8s-ingress-controller-configuration.sh">
+    <Content Include="rg-AKS\Scripts\k8s-install-ingress-controller.sh">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="rg-AKS\Scripts\k8s-install-azurepodidentity-keyvault-flextool.sh" />
+    <None Include="rg-AKS\Scripts\k8s-install-cluster-scaler.sh" />
+    <None Include="rg-AKS\Scripts\k8s-install-helm.sh" />
+    <None Include="rg-AKS\Scripts\k8s-install-kube-router.sh" />
+    <None Include="rg-AKS\Scripts\k8s-install-OSBA-Service-Catalog.sh" />
     <None Include="rg-windowssvr\WindowsVirtualMachine.json" />
     <None Include="rg-windowssvr\WindowsVirtualMachine.parameters.json" />
     <None Include="roottemplate.json" />
