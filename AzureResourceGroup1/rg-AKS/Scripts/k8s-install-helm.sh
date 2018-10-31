@@ -11,10 +11,11 @@ echo "Creating tiller service account and rolebinding ......."
 kubectl create -f "$MY_PATH/../Resources/helm-rbac.yaml"
 
 echo "Create helm kube config folder if one does not exist"
-if [ -d "~/snap/helm/common/kube" ]; then
-	mkdir ~/snap/helm/common/kube
+if [ ! -d "${HOME}/snap/helm/common/kube" ] 
+then
+	mkdir "${HOME}/snap/helm/common/kube"
 else
-	rm ~/snap/helm/common/kube/config	#remove config file if one exists already as it may be from previous deployment
+	rm "${HOME}/snap/helm/common/kube/config"	#remove config file if one exists already as it may be from previous deployment
 fi
 
 echo "Copying Kube context into helm ......."
