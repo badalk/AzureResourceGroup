@@ -48,7 +48,7 @@
     <Content Include="rg-AKS\azuredeploy-aks.json" />
     <Content Include="rg-AKS\azuredeploy-aks.parameters.json" />
     <None Include="rg-AKS\ConvertTo-SplattedHashtable.psm1" />
-    <Content Include="rg-AKS\Resources\aadpodidentity.yaml">
+    <Content Include="rg-AKS\Resources\aadpodidentity\templates\aadpodidentity.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="rg-AKS\Resources\cluster-admins.yaml">
@@ -57,10 +57,13 @@
     <Content Include="rg-AKS\Resources\helm-rbac.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="rg-AKS\Resources\aadpodidentity\Chart.yaml" />
+    <None Include="rg-AKS\Resources\aadpodidentity\Values.yaml" />
     <None Include="rg-AKS\Scripts\deploy-aks-create-cluster-admin-rolebindings.sh" />
     <Content Include="rg-AKS\Scripts\k8s-install-ingress-controller.sh">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="rg-AKS\Scripts\k8s-azure-provider-registration.sh" />
     <None Include="rg-AKS\Scripts\k8s-install-azurepodidentity-keyvault-flextool.sh" />
     <None Include="rg-AKS\Scripts\k8s-install-cluster-scaler.sh" />
     <None Include="rg-AKS\Scripts\k8s-install-helm.sh" />

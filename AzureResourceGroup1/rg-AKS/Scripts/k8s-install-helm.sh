@@ -1,4 +1,10 @@
-﻿echo "Install helm client ......."
+﻿
+#!/bin/bash
+
+set -e # stop on errors
+set -x # print commands when they are executed
+
+echo "Install helm client ......."
 sudo snap install helm --classic		#need to find out how to avoid this without using sudo
 
 MY_PATH="`dirname \"$0\"`"              # relative
@@ -9,9 +15,9 @@ kubectl create -f "$MY_PATH/../Resources/helm-rbac.yaml"
 
 echo "Create helm kube config folder if one does not exist"
 if [ -d "/path/to/dir" ]; then
-	mkdir ~/snap/helm/common/kube
+	mkdir /snap/helm/common/kube
 else
-	rm ~/snap/helm/common/kube/config	#remove config file if one exists already as it may be from previous deployment
+	rm /snap/helm/common/kube/config	#remove config file if one exists already as it may be from previous deployment
 fi
 
 echo "Copying Kube context into helm ......."

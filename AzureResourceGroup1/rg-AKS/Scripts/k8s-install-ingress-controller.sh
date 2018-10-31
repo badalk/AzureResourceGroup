@@ -1,3 +1,9 @@
+
+#!/bin/bash
+
+set -e # stop on errors
+set -x # print commands when they are executed
+
 aksResourceGroup=$1
 aksName=$2
 
