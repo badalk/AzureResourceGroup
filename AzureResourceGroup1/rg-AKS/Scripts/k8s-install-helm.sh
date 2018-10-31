@@ -1,10 +1,8 @@
-﻿#!/bin/bash
-
-set -e # stop on errors
+﻿set -e # stop on errors
 set -x # print commands when they are executed
 
 echo "Install helm client ......."
-snap install helm --classic		#need to find out how to avoid this without using sudo
+sudo snap install helm --classic		#need to find out how to avoid this without using sudo
 
 MY_PATH="`dirname \"$0\"`"              # relative
 echo "$MY_PATH"
