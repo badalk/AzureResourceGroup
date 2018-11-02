@@ -1,8 +1,4 @@
-﻿
-#!/bin/bash
-
-set -e # stop on errors
-set -x # print commands when they are executed
+﻿-e # stop on errors
 
 az provider register -n Microsoft.ContainerService
 az provider register -n Microsoft.ContainerRegistry

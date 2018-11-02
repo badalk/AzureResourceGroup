@@ -1,5 +1,4 @@
 ﻿-e # stop on errors
--x # print commands when they are executed
 
 echo "Install helm client ......."
 sudo snap install helm --classic		#need to find out how to avoid this without using sudo

@@ -34,6 +34,9 @@
     <Content Include="Deploy-AzureResourceGroup.ps1" />
     <Content Include="rg-AKS\azuredeploy-acr.Tests.Data.json" />
     <Content Include="rg-AKS\azuredeploy-aks-cicd.parameters.json" />
+    <Content Include="rg-AKS\Resources\deployment-rbac.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="rg-network\network.json" />
     <Content Include="rg-network\network.parameters.json" />
     <Content Include="rg-application1\server.json" />
@@ -80,7 +83,7 @@
     <Content Include="rg-AKS\Scripts\k8s-install-kube-router.sh">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="rg-AKS\Scripts\k8s-install-OSBA-Service-Catalog.sh">
+    <Content Include="rg-AKS\Scripts\k8s-install-osba-service-catalog.sh">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="rg-windowssvr\WindowsVirtualMachine.json" />

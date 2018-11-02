@@ -1,11 +1,8 @@
-
-#!/bin/bash
-
-set -e # stop on errors
-set -x # print commands when they are executed
+-e # stop on errors
 
 aksResourceGroup=$1
 aksName=$2
+ingressDNSName=$3
 
 PROGNAME=$(basename $0)
 
@@ -19,7 +16,7 @@ nodeResourceGroup="$(az aks show --resource-group ${aksResourceGroup} --name ${a
 
 echo "${nodeResourceGroup}"
 echo "creating a public ip for ingress controller"
-az network public-ip create --resource-group "${nodeResourceGroup}" --name aksIngressPublicIP --allocation-method static
+az network public-ip create --resource-group "${nodeResourceGroup}" --name aksIngressPublicIP --dns-name "${ingressDNSName}" --allocation-method static
 
 if [ "$?" = "0" ]; then
 	echo "getting newly created public ip for ingress controller"

@@ -17,16 +17,25 @@ error_exit()
 }
 
 echo "Creating AzureIdentity resources"
-#since we have RBAC enabled on the cluster we have to use rbac enabled deployment definition
-kubectl create -f https://raw.githubusercontent.com/Azure/aad-pod-identity/master/deploy/infra/deployment-rbac.yaml
+MY_PATH="`dirname \"$0\"`"              # relative
+echo "$MY_PATH"
+
+echo "Creating tiller service account and rolebinding ......."
+#since we have RBAC enabled on the cluster we have to use rbac enabled deployment definition,
+#but instead of reading it from github as commented in below comment we are using the locally defined yaml file which is 
+#kubectl create -f https://raw.githubusercontent.com/Azure/aad-pod-identity/master/deploy/infra/deployment-rbac.yaml
+kubectl create -f "$MY_PATH/../Resources/deployment-rbac.yaml"
 
 #get node resource group for aks service
 nodeResourceGroup="$(az aks show --resource-group ${aksResourceGroup} --name ${aksName} --query nodeResourceGroup -o tsv)"
 
-#create managed service identity and get the client id
+# create managed service identity and get the client id
+## TODO: we need to check if we will be pre-creating the msi and just using its client id and principalid or for each cluster we need to create a new msi
 clientId="$(az identity create -g ${nodeResourceGroup} -n k8s-msi --query clientId -o tsv)"
 Id="$(az identity show -g ${nodeResourceGroup} -n k8s-msi --query id -o tsv)"
 principalId="$(az identity show -g ${nodeResourceGroup} -n k8s-msi --query principalId -o tsv)"
+
+echo "MSI Client ID: ${clientId}, Id: ${Id}, principalId: ${principalId}"
 
 # Assign Reader Role to new Identity for your keyvault
 az role assignment create --role Reader --assignee ${principalId} --scope ${keyVaultResourceId}
