@@ -31,7 +31,8 @@ nodeResourceGroup="$(az aks show --resource-group ${aksResourceGroup} --name ${a
 
 # create managed service identity and get the client id
 ## TODO: we need to check if we will be pre-creating the msi and just using its client id and principalid or for each cluster we need to create a new msi
-clientId="$(az identity create -g ${nodeResourceGroup} -n k8s-msi --query clientId -o tsv)"
+KV_NAME="k8s-msi"
+clientId="$(az identity create -g ${nodeResourceGroup} -n ${KV_NAME} --query clientId -o tsv)"
 Id="$(az identity show -g ${nodeResourceGroup} -n k8s-msi --query id -o tsv)"
 principalId="$(az identity show -g ${nodeResourceGroup} -n k8s-msi --query principalId -o tsv)"
 
@@ -41,9 +42,9 @@ echo "MSI Client ID: ${clientId}, Id: ${Id}, principalId: ${principalId}"
 az role assignment create --role Reader --assignee ${principalId} --scope ${keyVaultResourceId}
 
 # set policy to access keys in your keyvault
-az keyvault set-policy -n $KV_NAME --key-permissions get --spn ${clientId}
+az keyvault set-policy -n ${KV_NAME} --key-permissions get --spn ${clientId}
 # set policy to access secrets in your keyvault
-az keyvault set-policy -n $KV_NAME --secret-permissions get --spn ${clientId}
+az keyvault set-policy -n ${KV_NAME} --secret-permissions get --spn ${clientId}
 # set policy to access certs in your keyvault
-az keyvault set-policy -n $KV_NAME --certificate-permissions get --spn ${clientId}
+az keyvault set-policy -n ${KV_NAME} --certificate-permissions get --spn ${clientId}
 

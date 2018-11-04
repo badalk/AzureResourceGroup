@@ -1,12 +1,16 @@
-﻿{
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "1.0.0.0",
-  "parameters": {
-  },
-  "variables": {
-  },
-  "resources": [
-  ],
-  "outputs": {
-  }
-}
+﻿apiVersion: v1
+description: Chart to create azureIdentity resource for a given cluster given KeyVault resource ID and client ID of user managed identity
+keywords: 
+  - AzurePodIdentity
+  - KeyVault
+  - Security
+icon: https://github.com/kubernetes/kubernetes/blob/master/logo/logo.png
+name: azurePodIdentity-K8s
+version: 1.0.0.
+home: https://github.com/badalk/AzureResourceGroup1/AzureResourceGroup1/rg-AKS/resources/aadpodidentity
+sources:
+- https://github.com/badalk/AzureResourceGroup1/AzureResourceGroup1/rg-AKS/resources
+maintainers:
+- name: Badal Kotecha
+  email: badal.kotecha@mindtree.com
+engine: gotpl
