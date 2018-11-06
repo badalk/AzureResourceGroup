@@ -1,0 +1,15 @@
+﻿apiVersion: v1
+description: Chart to grant cluster admin role to an object id passed as input
+keywords: 
+  - ClusterAdminChart
+  - ClusterAdminRoleBinding
+icon: https://github.com/kubernetes/kubernetes/blob/master/logo/logo.png
+name: clusteradminrolebinding-K8s
+version: 1.0.0.
+home: https://github.com/badalk/AzureResourceGroup1/AzureResourceGroup1/rg-AKS/resources/k8s-cluster-admin
+sources:
+- https://github.com/badalk/AzureResourceGroup1/AzureResourceGroup1/rg-AKS/resources
+maintainers:
+- name: Badal Kotecha
+  email: badal.kotecha@mindtree.com
+engine: gotpl

@@ -1,1 +1,0 @@
-kubectl create -f "..\Resources\cluster-admins.yaml"

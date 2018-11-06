@@ -1,11 +1,11 @@
 ﻿apiVersion: v1
 description: Chart to create azureIdentity resource for a given cluster given KeyVault resource ID and client ID of user managed identity
 keywords: 
-  - AzurePodIdentity
+  - AzureADPodIdentity
   - KeyVault
   - Security
 icon: https://github.com/kubernetes/kubernetes/blob/master/logo/logo.png
-name: azurePodIdentity-K8s
+name: aadpodidentity
 version: 1.0.0.
 home: https://github.com/badalk/AzureResourceGroup1/AzureResourceGroup1/rg-AKS/resources/aadpodidentity
 sources:

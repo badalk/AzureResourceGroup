@@ -9,4 +9,4 @@ roleRef:
 subjects:
 - apiGroup: rbac.authorization.k8s.io
   kind: Group
-  name: "07a020cc-3f77-470a-8e01-3eb97962e0df"
+  name: {{ .Values.adminAADGoupId }} #07a020cc-3f77-470a-8e01-3eb97962e0df

@@ -1,12 +1,10 @@
-﻿
-#!/bin/bash
-
-set -e # stop on errors
-set -x # print commands when they are executed
-
+﻿-e # stop on errors
 aksResourceGroup=$1
 aksName=$2
-keyVaultResourceId=$3
+acrname=$3
+keyVaultResourceId=$4
+clientID=$5
+azurePodIdentityName=$6
 
 PROGNAME=$(basename $0)
 
@@ -48,3 +46,8 @@ az keyvault set-policy -n ${KV_NAME} --secret-permissions get --spn ${clientId}
 # set policy to access certs in your keyvault
 az keyvault set-policy -n ${KV_NAME} --certificate-permissions get --spn ${clientId}
 
+#add aadpodidentity helm chart to ACR repository, if does not exist
+az configure --defaults acr=${acrname}
+az acr helm repo add
+
+helm install aadpodidentity --set name=${azurePodIdentityName} --set msi.resourceID=${keyVaultResourceId} --set msi.clientID=${clientId}

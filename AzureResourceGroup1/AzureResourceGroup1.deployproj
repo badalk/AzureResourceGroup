@@ -54,7 +54,7 @@
     <Content Include="rg-AKS\Resources\aadpodidentity\templates\aadpodidentity.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="rg-AKS\Resources\cluster-admins.yaml">
+    <Content Include="rg-AKS\Resources\k8s-cluster-admin\templates\cluster-admins.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="rg-AKS\Resources\helm-rbac.yaml">
@@ -62,7 +62,7 @@
     </Content>
     <None Include="rg-AKS\Resources\aadpodidentity\Chart.yaml" />
     <None Include="rg-AKS\Resources\aadpodidentity\Values.yaml" />
-    <Content Include="rg-AKS\Scripts\deploy-aks-create-cluster-admin-rolebindings.sh">
+    <Content Include="rg-AKS\Scripts\k8s-install-cluster-admin-rolebinding.sh">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="rg-AKS\Scripts\k8s-install-ingress-controller.sh">
@@ -86,6 +86,8 @@
     <Content Include="rg-AKS\Scripts\k8s-install-osba-service-catalog.sh">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="rg-AKS\Resources\k8s-cluster-admin\Chart.yaml" />
+    <None Include="rg-AKS\Resources\k8s-cluster-admin\Values.yaml" />
     <None Include="rg-windowssvr\WindowsVirtualMachine.json" />
     <None Include="rg-windowssvr\WindowsVirtualMachine.parameters.json" />
     <None Include="roottemplate.json" />
