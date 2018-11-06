@@ -46,7 +46,7 @@ az keyvault set-policy -n ${KV_NAME} --secret-permissions get --spn ${clientId}
 # set policy to access certs in your keyvault
 az keyvault set-policy -n ${KV_NAME} --certificate-permissions get --spn ${clientId}
 
-#add aadpodidentity helm chart to ACR repository, if does not exist
+#package and add aadpodidentity helm chart to ACR repository, TODO: if does not exist
 az configure --defaults acr=${acrname}
 az acr helm repo add
 cd "$MY_PATH/../Resources/"
