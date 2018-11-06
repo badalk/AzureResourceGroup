@@ -49,5 +49,8 @@ az keyvault set-policy -n ${KV_NAME} --certificate-permissions get --spn ${clien
 #add aadpodidentity helm chart to ACR repository, if does not exist
 az configure --defaults acr=${acrname}
 az acr helm repo add
+cd "$MY_PATH/../Resources/"
+helm package aadpodidentity
+az acr helm push adpodidentity-1.0.0.tgz
 
 helm install aadpodidentity --set name=${azurePodIdentityName} --set msi.resourceID=${keyVaultResourceId} --set msi.clientID=${clientId}

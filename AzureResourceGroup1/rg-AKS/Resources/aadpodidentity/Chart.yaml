@@ -6,7 +6,7 @@ keywords:
   - Security
 icon: https://github.com/kubernetes/kubernetes/blob/master/logo/logo.png
 name: aadpodidentity
-version: 1.0.0.
+version: 1.0.0
 home: https://github.com/badalk/AzureResourceGroup1/AzureResourceGroup1/rg-AKS/resources/aadpodidentity
 sources:
 - https://github.com/badalk/AzureResourceGroup1/AzureResourceGroup1/rg-AKS/resources
