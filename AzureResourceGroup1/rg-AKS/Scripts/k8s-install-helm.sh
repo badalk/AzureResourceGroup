@@ -20,5 +20,6 @@ fi
 echo "Copying Kube context into helm ......."
 cp -f /var/lib/jenkins/.kube/config ~/snap/helm/common/kube/ 
 
-echo "Install Tiller service and initialize helm ......."
-helm init --service-account tiller
+echo "Install Tiller service and initialize helm. Wait until tiller pods are ready ......."
+helm init --wait --service-account tiller
+

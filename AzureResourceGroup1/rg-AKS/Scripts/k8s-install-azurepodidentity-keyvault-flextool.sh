@@ -26,12 +26,16 @@ kubectl create -f "$MY_PATH/../Resources/deployment-rbac.yaml"
 #get node resource group for aks service
 nodeResourceGroup="$(az aks show --resource-group ${aksResourceGroup} --name ${aksName} --query nodeResourceGroup -o tsv)"
 
+echo "AKS Node Resource Group (\$nodeResourceGroup): '${nodeResourceGroup}'"
 # create managed service identity and get the client id
 ## TODO: we need to check if we will be pre-creating the msi and just using its client id and principalid or for each cluster we need to create a new msi
-echo "create an msi ...."
+echo "Creating an msi to access key vault...."
 clientId="$(az identity create -g ${nodeResourceGroup} -n k8s-msi --query clientId -o tsv)"
+echo "MSI Client Id: ${clientId}"
 Id="$(az identity show -g ${nodeResourceGroup} -n k8s-msi --query id -o tsv)"
+echo "MSI Resorce Id: ${Id}"
 principalId="$(az identity show -g ${nodeResourceGroup} -n k8s-msi --query principalId -o tsv)"
+echo "MSI Principal Id: ${principalId}"
 
 echo "MSI Client ID: ${clientId}, Id: ${Id}, principalId: ${principalId}"
 
