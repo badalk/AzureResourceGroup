@@ -71,9 +71,11 @@ echo "MSI Principal Id: ${principalId}"
 
 #package and add aadpodidentity helm chart to ACR repository, TODO: if does not exist
 az configure --defaults acr=${acrname}
+echo "Adding helm repo for ACR...."
 az acr helm repo add
-#cd "$MY_PATH/../Resources/"
+echo "Packaging aadpodidentity helm chart ...."
 helm package "$MY_PATH/../Resources/aadpodidentity" --destination "$MY_PATH/../Resources"
-az acr helm push "$MY_PATH/../Resources/aadpodidentity-1.0.0.tgz"
-
+echo "Pushing helm chart to ACR ..."
+az acr helm push -n "${acrname}" "$MY_PATH/../Resources/aadpodidentity-1.0.0.tgz"
+echo "Installing helm chart for aadpodidentity on aks cluster ..."
 helm install aadpodidentity --set name=${azurePodIdentityName} --set msi.resourceID=${keyVaultResourceId} --set msi.clientID=${clientId}
