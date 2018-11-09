@@ -61,12 +61,12 @@ kubectl create -f "$MY_PATH/../Resources/deployment-rbac.yaml"
 # az keyvault set-policy -n ${KV_NAME} --certificate-permissions get --spn ${clientId}
 
 ######################################################################################
-# 
+# Above can be removed if MSI is pre-created
 ######################################################################################
 echo "Creating an msi to access key vault...."
 clientId="$(az identity show --ids ${azurePodIdentityResourceId} --query clientId -o tsv)"
 echo "MSI Client Id: ${clientId}"
-principalId="$(az identity show ${azurePodIdentityResourceId} --query principalId -o tsv)"
+principalId="$(az identity show --ids ${azurePodIdentityResourceId} --query principalId -o tsv)"
 echo "MSI Principal Id: ${principalId}"
 
 #package and add aadpodidentity helm chart to ACR repository, TODO: if does not exist
