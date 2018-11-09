@@ -1,12 +1,12 @@
-﻿aksResourceGroup=$1
+﻿set -o xtrace
+set -e
+
+aksResourceGroup=$1
 aksName=$2
 acrname=$3
 keyVaultResourceId=$4
 clientID=$5
 azurePodIdentityName=$6
-
-set -o xtrace
-set -e
 
 PROGNAME=$(basename $0)
 
