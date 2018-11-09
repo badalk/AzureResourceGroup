@@ -5,6 +5,9 @@ keyVaultResourceId=$4
 clientID=$5
 azurePodIdentityName=$6
 
+set -o xtrace
+set -e
+
 PROGNAME=$(basename $0)
 
 error_exit()
@@ -26,7 +29,8 @@ echo "Creating aadpodidentity resources ......."
 #since we have RBAC enabled on the cluster we have to use rbac enabled deployment definition,
 #but instead of reading it from github as commented in below comment we are using the locally defined yaml file which is 
 #kubectl create -f https://raw.githubusercontent.com/Azure/aad-pod-identity/master/deploy/infra/deployment-rbac.yaml
-kubectl create -f "$MY_PATH/../Resources/deployment-rbac.yaml"
+kubectl delete -f "$MY_PATH/../Resources/deployment-rbac.yaml" --wait
+kubectl create -f "$MY_PATH/../Resources/deployment-rbac.yaml" --wait
 
 
 echo "AKS Node Resource Group (\$nodeResourceGroup): '${nodeResourceGroup}'"
