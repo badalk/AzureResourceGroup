@@ -5,4 +5,4 @@ metadata:
 spec:
  type: 0
  ResourceID: {{ .Values.msi.resourceID }} #/subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourcegroups/MC_rg-aks-arm_myfirstakscluster_eastus2/providers/Microsoft.ManagedIdentity/userAssignedIdentities/kvreader
- ClientID: {{ values.msi.clientID }} #c566d081-29df-4176-a13b-39a4ece81382
+ ClientID: {{ Values.msi.clientID }} #c566d081-29df-4176-a13b-39a4ece81382
