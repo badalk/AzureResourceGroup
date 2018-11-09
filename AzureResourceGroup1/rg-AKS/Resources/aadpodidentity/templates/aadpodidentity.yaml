@@ -1,7 +1,7 @@
 apiVersion: "aadpodidentity.k8s.io/v1"
 kind: AzureIdentity
 metadata:
- name: { .Values.name }
+ name: {{ .Values.name }}
 spec:
  type: 0
  ResourceID: {{ .Values.msi.resourceID }} #/subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourcegroups/MC_rg-aks-arm_myfirstakscluster_eastus2/providers/Microsoft.ManagedIdentity/userAssignedIdentities/kvreader
