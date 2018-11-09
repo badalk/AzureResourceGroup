@@ -76,6 +76,6 @@ az acr helm repo add
 echo "Packaging aadpodidentity helm chart ...."
 helm package "$MY_PATH/../Resources/aadpodidentity" --destination "$MY_PATH/../Resources"
 echo "Pushing helm chart to ACR ..."
-az acr helm push -n "${acrName}" "$MY_PATH/../Resources/aadpodidentity-1.0.0.tgz" --username a03158e9-58f5-4e5e-b11b-b5a2df77c661 --password FiS+yQNCI7GrX4jJ5ydyZOH9XmbCFCSBN70SdiwwtWg=
+az acr helm push -n "${acrName}" "$MY_PATH/../Resources/aadpodidentity-1.0.0.tgz" --force #--username a03158e9-58f5-4e5e-b11b-b5a2df77c661 --password FiS+yQNCI7GrX4jJ5ydyZOH9XmbCFCSBN70SdiwwtWg=
 echo "Installing helm chart for aadpodidentity on aks cluster ..."
 helm install "${acrName}/aadpodidentity" --set name=${azurePodIdentityName} --set msi.resourceID=${keyVaultResourceId} --set msi.clientID=${clientId}
