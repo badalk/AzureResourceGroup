@@ -13,6 +13,11 @@ error_exit()
 	exit 1
 }
 
+#get node resource group for aks service
+echo "\$aksResourceGroup: ${aksResourceGroup}"
+echo "\$aksName: ${aksName}"
+nodeResourceGroup="$(az aks show --resource-group ${aksResourceGroup} --name ${aksName} --query nodeResourceGroup -o tsv)"
+
 echo "Creating AzureIdentity resources"
 MY_PATH="`dirname \"$0\"`"              # relative
 echo "$MY_PATH"
@@ -23,8 +28,6 @@ echo "Creating aadpodidentity resources ......."
 #kubectl create -f https://raw.githubusercontent.com/Azure/aad-pod-identity/master/deploy/infra/deployment-rbac.yaml
 kubectl create -f "$MY_PATH/../Resources/deployment-rbac.yaml"
 
-#get node resource group for aks service
-nodeResourceGroup="$(az aks show --resource-group ${aksResourceGroup} --name ${aksName} --query nodeResourceGroup -o tsv)"
 
 echo "AKS Node Resource Group (\$nodeResourceGroup): '${nodeResourceGroup}'"
 # create managed service identity and get the client id
