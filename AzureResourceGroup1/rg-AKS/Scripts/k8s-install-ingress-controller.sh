@@ -1,5 +1,3 @@
--e # stop on errors
-
 aksResourceGroup=$1
 aksName=$2
 ingressDNSName=$3

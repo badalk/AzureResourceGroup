@@ -1,4 +1,4 @@
-﻿name: az-kvreader-identity
+﻿name: az-k8s-kvreader-identity
 msi:
   resourceID: /subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourceGroups/rg-secrets/providers/Microsoft.KeyVault/vaults/aks-sp-key-secret-vault
   clientID: a03158e9-58f5-4e5e-b11b-b5a2df77c661 #c566d081-29df-4176-a13b-39a4ece81382 
