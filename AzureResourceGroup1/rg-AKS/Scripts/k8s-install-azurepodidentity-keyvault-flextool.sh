@@ -74,6 +74,6 @@ az configure --defaults acr=${acrname}
 az acr helm repo add
 #cd "$MY_PATH/../Resources/"
 helm package "$MY_PATH/../Resources/aadpodidentity" --destination "$MY_PATH/../Resources"
-az acr helm push "$MY_PATH/../Resources/adpodidentity-1.0.0.tgz"
+az acr helm push "$MY_PATH/../Resources/aadpodidentity-1.0.0.tgz"
 
 helm install aadpodidentity --set name=${azurePodIdentityName} --set msi.resourceID=${keyVaultResourceId} --set msi.clientID=${clientId}
