@@ -4,7 +4,7 @@ keywords:
   - ClusterAdminChart
   - ClusterAdminRoleBinding
 icon: https://github.com/kubernetes/kubernetes/blob/master/logo/logo.png
-name: clusteradminrolebinding-K8s
+name: k8s-cluster-admin
 version: 1.0.0.
 home: https://github.com/badalk/AzureResourceGroup1/AzureResourceGroup1/rg-AKS/resources/k8s-cluster-admin
 sources:
