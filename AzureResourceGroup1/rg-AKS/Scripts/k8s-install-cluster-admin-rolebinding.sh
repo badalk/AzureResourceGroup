@@ -26,7 +26,7 @@ echo "Packaging cluster admin role helm chart ...."
 helm package "$MY_PATH/../Resources/k8sClusterAdmin" --destination "$MY_PATH/../Resources"
 echo "Pushing helm chart to ACR ..."
 #az login --service-principal -u "a03158e9-58f5-4e5e-b11b-b5a2df77c661" -p "FiS+yQNCI7GrX4jJ5ydyZOH9XmbCFCSBN70SdiwwtWg=" --tenant "b25fcb44-9c49-413c-9fdc-b59b39447b84"
-az acr helm push -n "${acrName}" "$MY_PATH/../Resources/k8sClusterAdmin-1.0.0.tgz" --force #--username a03158e9-58f5-4e5e-b11b-b5a2df77c661 --password FiS+yQNCI7GrX4jJ5ydyZOH9XmbCFCSBN70SdiwwtWg=
+az acr helm push -n "${acrName}" "$MY_PATH/../Resources/k8sClusterAdmin-1.0.0.tgz" #--username a03158e9-58f5-4e5e-b11b-b5a2df77c661 --password FiS+yQNCI7GrX4jJ5ydyZOH9XmbCFCSBN70SdiwwtWg=
 
 ##########################################################################################
 # Above can be removed if MSI is pre-created
