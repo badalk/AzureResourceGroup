@@ -73,6 +73,7 @@ echo "MSI Principal Id: ${principalId}"
 az configure --defaults acr=${acrName}
 echo "Adding helm repo for ACR...."
 az acr helm repo add
+
 #TODO: Need to change az login to use service principal - currently this does not work even when SP has ACRImagePusher permissions on ACR
 #Commenting this code and we need to handle pushing the helm chart separately and CI/CD pipeline will expect this chart to exist in ACR already
 echo "Packaging aadpodidentity helm chart ...."
