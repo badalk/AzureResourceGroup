@@ -2,7 +2,10 @@
 echo "         Installing kube-router for interpod networking        "
 echo "..............................................................."
 
-kubectl apply -f https://raw.githubusercontent.com/marrobi/kube-router/marrobi/aks-yaml/daemonset/kube-router-firewall-daemonset-aks.yaml
+MY_PATH="`dirname \"$0\"`"              # relative
+echo "$MY_PATH"
+
+kubectl apply -f "$MY_PATH/../Resources/kuberouter-daemonset-deployment.yaml"
 
 kubectl get daemonset kube-router -n kube-system
 

@@ -34,7 +34,7 @@
     <Content Include="Deploy-AzureResourceGroup.ps1" />
     <Content Include="rg-AKS\azuredeploy-acr.Tests.Data.json" />
     <Content Include="rg-AKS\azuredeploy-aks-cicd.parameters.json" />
-    <Content Include="rg-AKS\Resources\kyberouter-daemonset-deployment.yaml">
+    <Content Include="rg-AKS\Resources\kuberouter-daemonset-deployment.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="rg-AKS\Resources\deployment-rbac.yaml">
