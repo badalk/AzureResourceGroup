@@ -33,6 +33,7 @@ az acr helm push -n "${acrName}" "$MY_PATH/../Resources/k8s-cluster-admin-1.0.0.
 ##########################################################################################
 
 # Assuming helm chart already exists (if not use the same as above commands to package and push to ACR repository)
+helm repo update
 echo "Installing helm chart for cluster admins on aks cluster ..."
 helm install "${acrName}/k8s-cluster-admin" --set adminAADGoupId="${k8sAdminGroupId}"
 
