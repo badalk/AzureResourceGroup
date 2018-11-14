@@ -16,13 +16,14 @@ az acr helm repo add
 MY_PATH="`dirname \"$0\"`"              # relative
 echo "$MY_PATH"
 
-###############################################################################################
-# All of this below can be pre-created and helm chart can be pre-published to ACR
-###############################################################################################
 #package and add aadpodidentity helm chart to ACR repository, TODO: if does not exist
 az configure --defaults acr=${acrName}
 echo "Adding helm repo for ACR...."
 az acr helm repo add
+
+###############################################################################################
+# All of this below can be pre-created and helm chart can be pre-published to ACR
+###############################################################################################
 
 echo "Creating cluster admib rolebinding"
 
@@ -33,12 +34,10 @@ echo "Pushing helm chart to ACR ..."
 az acr helm push -n "${acrName}" "$MY_PATH/../Resources/k8sClusterAdmin-1.0.0.tgz" #--username a03158e9-58f5-4e5e-b11b-b5a2df77c661 --password FiS+yQNCI7GrX4jJ5ydyZOH9XmbCFCSBN70SdiwwtWg=
 
 ##########################################################################################
-# Above can be removed if MSI is pre-created
+# Above can be removed if helm chart is packaged and pushed outside of this script
 ##########################################################################################
 
 # Assuming helm chart already exists (if not use the same as above commands to package and push to ACR repository)
 helm repo update
-echo "Installing helm chart for cluster admins on aks cluster ..."
-helm install ${acrName}/k8sClusterAdmin --set adminAADGroupId="${k8sAdminGroupId}"
-
-#kubectl create -f "$MY_PATH/../Resources/cluster-admins.yaml"
+echo "Installing helm chart for cluster admins on aks cluster ... with group id '${k8sAdminGroupId}'"
+helm install "${acrName}/k8sClusterAdmin" --set adminAADGroupId="${k8sAdminGroupId}"
