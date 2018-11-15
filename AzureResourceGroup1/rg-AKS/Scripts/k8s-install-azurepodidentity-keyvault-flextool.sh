@@ -84,6 +84,7 @@ az acr helm push -n "${acrName}" "$MY_PATH/../Resources/aadpodidentity-1.0.0.tgz
 
 # Assuming helm chart already exists (if not use the same as above commands to package and push to ACR repository)
 echo "Installing helm chart for aadpodidentity on aks cluster ..."
+az acr helm repo add
 helm repo update
 echo "Pod Identity Name ${azurePodIdentityResourceId##*/}"
 helm install "${acrName}/aadpodidentity" --set name="${azurePodIdentityResourceId##*/}" --set msi.resourceID=${azurePodIdentityResourceId} --set msi.clientID=${clientId}
