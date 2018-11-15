@@ -41,7 +41,7 @@ az acr helm push -n "${acrName}" "$MY_PATH/../Resources/k8sClusterAdmin-1.0.0.tg
 # this is needed to get a new authentication token if you are trying to pull the chart in the same session
 # if above is not done helm will not be able to download the chart and will give you un-authorized error.  
 # Refer https://docs.microsoft.com/en-us/azure/container-registry/container-registry-helm-repos#install-a-helm-chart-from-the-repository
-az acr helm repo add
 helm repo update
+az acr helm repo add
 echo "Installing helm chart for cluster admins on aks cluster ... with group id '${k8sAdminGroupId}'"
 helm install "${acrName}/k8sClusterAdmin" --set adminAADGroupId="${k8sAdminGroupId}"
