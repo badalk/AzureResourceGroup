@@ -45,4 +45,4 @@ az acr helm repo add
 # Refer https://docs.microsoft.com/en-us/azure/container-registry/container-registry-helm-repos#install-a-helm-chart-from-the-repository
 helm repo update
 echo "Installing helm chart for cluster admins on aks cluster ... with group id '${k8sAdminGroupId}'"
-helm install "${acrName}/k8sClusterAdmin" --set adminAADGroupId="${k8sAdminGroupId}"
+helm install "${acrName}/k8sClusterAdmin" --set adminAADGroupId="${k8sAdminGroupId}" --wait
