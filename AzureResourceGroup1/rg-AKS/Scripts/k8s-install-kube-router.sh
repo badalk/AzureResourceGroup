@@ -1,5 +1,7 @@
-﻿MY_PATH="`dirname \"$0\"`"              # relative
-echo "$MY_PATH"
+﻿echo "Installing kube router"
+
+MY_PATH="`dirname \"$0\"`"              # relative
+echo "Current Path: $MY_PATH"
 
 kubectl apply -f "$MY_PATH/../Resources/kuberouter-daemonset-deployment.yaml"
 
