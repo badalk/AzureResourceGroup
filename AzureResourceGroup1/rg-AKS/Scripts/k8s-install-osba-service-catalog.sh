@@ -28,13 +28,5 @@ echo "Updating the repo"
 helm repo update
 
 echo "Install the Open Service Broker for Azure using the Helm chart"
-echo "subscriptionId: '${subscriptionId}'"
-echo "tenantId: '${tenantId}'"
-echo "clientId: '${clientId}'"
-echo "clientSecret: '${clientSecret}'"
 
-helm install azure/open-service-broker-azure --name osba --namespace osba \
-    --set azure.subscriptionId=${subscriptionId} \
-    --set azure.tenantId=${tenantId} \
-    --set azure.clientId=${clientId} \
-    --set azure.clientSecret=${clientSecret} --wait
+helm install azure/open-service-broker-azure --name osba --namespace osba --set azure.subscriptionId=${subscriptionId} --set azure.tenantId=${tenantId} --set azure.clientId=${clientId} --set azure.clientSecret=${clientSecret} --wait

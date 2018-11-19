@@ -40,6 +40,9 @@
     <Content Include="rg-AKS\Resources\deployment-rbac.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="rg-AKS\Scripts\k8s-azure-add-tags.sh">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="rg-network\network.json" />
     <Content Include="rg-network\network.parameters.json" />
     <Content Include="rg-application1\server.json" />
