@@ -76,15 +76,15 @@ az acr helm repo add
 
 #TODO: Need to change az login to use service principal - currently this does not work even when SP has ACRImagePusher permissions on ACR
 #Commenting this code and we need to handle pushing the helm chart separately and CI/CD pipeline will expect this chart to exist in ACR already
-echo "Packaging aadpodidentity helm chart ...."
-helm package "$MY_PATH/../Resources/aadpodidentity" --destination "$MY_PATH/../Resources"
-echo "Pushing helm chart to ACR ..."
-#az login --service-principal -u "a03158e9-58f5-4e5e-b11b-b5a2df77c661" -p "FiS+yQNCI7GrX4jJ5ydyZOH9XmbCFCSBN70SdiwwtWg=" --tenant "b25fcb44-9c49-413c-9fdc-b59b39447b84"
-az acr helm push -n "${acrName}" "$MY_PATH/../Resources/aadpodidentity-1.0.0.tgz" #--username a03158e9-58f5-4e5e-b11b-b5a2df77c661 --password FiS+yQNCI7GrX4jJ5ydyZOH9XmbCFCSBN70SdiwwtWg=
+#echo "Packaging aadpodidentity helm chart ...."
+#helm package "$MY_PATH/../Resources/aadpodidentity" --destination "$MY_PATH/../Resources"
+#echo "Pushing helm chart to ACR ..."
+##az login --service-principal -u "a03158e9-58f5-4e5e-b11b-b5a2df77c661" -p "FiS+yQNCI7GrX4jJ5ydyZOH9XmbCFCSBN70SdiwwtWg=" --tenant "b25fcb44-9c49-413c-9fdc-b59b39447b84"
+#az acr helm push -n "${acrName}" "$MY_PATH/../Resources/aadpodidentity-1.0.0.tgz" #--username a03158e9-58f5-4e5e-b11b-b5a2df77c661 --password FiS+yQNCI7GrX4jJ5ydyZOH9XmbCFCSBN70SdiwwtWg=
 
 # Assuming helm chart already exists (if not use the same as above commands to package and push to ACR repository)
 helm repo update
 echo "Installing helm chart for aadpodidentity on aks cluster ..."
-az acr helm repo add
+#az acr helm repo add
 echo "Pod Identity Name ${azurePodIdentityResourceId##*/}"
 helm install "${acrName}/aadpodidentity" --set name="${azurePodIdentityResourceId##*/}" --set msi.resourceID=${azurePodIdentityResourceId} --set msi.clientID=${clientId}
