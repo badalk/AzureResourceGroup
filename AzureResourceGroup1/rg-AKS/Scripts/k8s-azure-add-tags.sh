@@ -26,4 +26,4 @@ jsonnodergtags=$(az group show -g ${nodeResourceGroup} --query tags)
 nodergtags=$(echo $jsonrtag | tr -d '"{},' | sed 's/: /=/g')
 
 echo "Updating tags on AKS node resource Group"
-az group --tags $rgtags $nodergtags -g $nodeResourceGroup 
+az group update --tags $rgtags $nodergtags -g $nodeResourceGroup 
