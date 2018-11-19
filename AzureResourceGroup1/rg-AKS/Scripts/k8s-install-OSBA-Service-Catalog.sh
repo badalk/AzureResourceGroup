@@ -1,7 +1,17 @@
-﻿subscriptionId=$1
+﻿set -o xtrace
+
+subscriptionId=$1
 tenantId=$2
 clientId=$3
 clientSecret=$4
+
+PROGNAME=$(basename $0)
+
+error_exit()
+{
+	echo "${PROGNAME}: ${1:-"Unknown Error"}" 1>&2
+	exit 1
+}
 
 helm init --upgrade
 
