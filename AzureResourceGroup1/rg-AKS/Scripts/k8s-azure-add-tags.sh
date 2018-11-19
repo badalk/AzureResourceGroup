@@ -16,7 +16,7 @@ echo "Getting aks resource group tags"
 jsonrgtags=$(az group show -g ${aksResourceGroup} --query tags)
 rgtags=$(echo $jsonrgtags | tr -d '"{},' | sed 's/: /=/g')
 
-echo "AKS resource group tags : $rt"
+echo "AKS resource group tags : $rgtags"
 
 echo "Get AKS node resource group"
 nodeResourceGroup="$(az aks show --resource-group ${aksResourceGroup} --name ${aksName} --query nodeResourceGroup -o tsv)"
@@ -25,5 +25,6 @@ nodeResourceGroup="$(az aks show --resource-group ${aksResourceGroup} --name ${a
 jsonnodergtags=$(az group show -g ${nodeResourceGroup} --query tags)
 nodergtags=$(echo $jsonrtag | tr -d '"{},' | sed 's/: /=/g')
 
+echo "AKS node resource group tags : $nodergtags"
 echo "Updating tags on AKS node resource Group"
 az group update --tags $rgtags $nodergtags -g $nodeResourceGroup 
