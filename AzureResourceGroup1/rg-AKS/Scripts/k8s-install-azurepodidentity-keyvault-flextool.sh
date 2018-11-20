@@ -52,6 +52,10 @@ kubectl create -f "$MY_PATH/../Resources/deployment-rbac.yaml"
 # # Assign Reader Role to new Identity for your keyvault
 # az role assignment create --role Reader --assignee ${principalId} --scope ${keyVaultResourceId}
 
+#----------------------------------------------------------------------------------
+# TODO: Pratap to do this according to how we have done it for other blueprints
+#--------------------------------------------------------------------------------
+
 # KV_NAME="aks-sp-key-secret-vault" #TODO: get it from keyvault resoure ID parameter
 # # set policy to access keys in your keyvault
 # az keyvault set-policy -n ${KV_NAME} --key-permissions get --spn ${clientId}

@@ -13,7 +13,7 @@ error_exit()
 	exit 1
 }
 
-helm init --upgrade
+#helm init --upgrade
 
 echo "Adding google service catalog repo"
 helm repo add svc-cat https://svc-catalog-charts.storage.googleapis.com

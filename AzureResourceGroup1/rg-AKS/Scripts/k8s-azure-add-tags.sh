@@ -23,8 +23,8 @@ nodeResourceGroup="$(az aks show --resource-group ${aksResourceGroup} --name ${a
 
 # Get existing tags on AKS node resource group as we do not want to erase existing tags which are important for AKS to function
 jsonnodergtags=$(az group show -g ${nodeResourceGroup} --query tags)
-nodergtags=$(echo $jsonrtag | tr -d '"{},' | sed 's/: /=/g')
+nodergtags=$(echo $jsonnodergtags | tr -d '"{},' | sed 's/: /=/g')
 
-echo "AKS node resource group tags : $nodergtags"
+echo "AKS node resource group tags : ${nodergtags}"
 echo "Updating tags on AKS node resource Group"
 az group update --tags $rgtags $nodergtags -g $nodeResourceGroup 
