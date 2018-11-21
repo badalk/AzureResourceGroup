@@ -1,3 +1,4 @@
+#!/bin/bash
 aksResourceGroup=$1
 aksName=$2
 ingressDNSName=$3

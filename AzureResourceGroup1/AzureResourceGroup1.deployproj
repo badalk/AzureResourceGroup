@@ -80,7 +80,7 @@
     <Content Include="rg-AKS\Scripts\k8s-install-azurepodidentity-keyvault-flextool.sh">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="rg-AKS\Scripts\k8s-install-cluster-scaler.sh">
+    <Content Include="rg-AKS\Scripts\k8s-install-cluster-autoscaler.sh">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="rg-AKS\Scripts\k8s-install-helm.sh">

@@ -1,4 +1,5 @@
-﻿set -o xtrace
+﻿#!/bin/bash
+set -o xtrace
 
 PROGNAME=$(basename $0)
 

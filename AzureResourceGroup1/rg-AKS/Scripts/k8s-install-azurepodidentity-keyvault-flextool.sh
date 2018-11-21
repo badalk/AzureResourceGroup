@@ -1,4 +1,6 @@
-﻿set -o xtrace
+﻿#!/bin/bash
+
+set -o xtrace
 
 aksResourceGroup=$1
 aksName=$2

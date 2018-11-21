@@ -1,3 +1,4 @@
+#!/bin/bash
 set -o xtrace
 
 acrName=$1
