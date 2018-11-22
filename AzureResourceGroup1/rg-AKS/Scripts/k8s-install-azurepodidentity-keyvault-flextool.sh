@@ -93,4 +93,4 @@ helm repo update
 echo "Installing helm chart for aadpodidentity on aks cluster ..."
 #az acr helm repo add
 echo "Pod Identity Name ${azurePodIdentityResourceId##*/}"
-helm install "${acrName}/aadpodidentity" --set name="${azurePodIdentityResourceId##*/}" --set msi.resourceID=${azurePodIdentityResourceId} --set msi.clientID=${clientId} --wait
+helm install "${acrName}/aadpodidentity" --name aadpodidentity --set name="${azurePodIdentityResourceId##*/}" --set msi.resourceID=${azurePodIdentityResourceId} --set msi.clientID=${clientId} --wait

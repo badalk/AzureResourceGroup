@@ -27,7 +27,7 @@ fi
 
 if [ "$?" = "0" ]; then
 	echo "Installing ingress service with public Ip ${ingressPublicIp} ......"
-	helm install stable/nginx-ingress --namespace kube-system --set controller.service.loadBalancerIP="${ingressPublicIp}" --wait
+	helm install stable/nginx-ingress --namespace --name nginx-ingress kube-system --set controller.service.loadBalancerIP="${ingressPublicIp}" --wait
 	echo "Ingress controller is now installed."
 else
 	error_exit "$LINENO: Cannot install ingress service on ${aksName}" 1>&2
