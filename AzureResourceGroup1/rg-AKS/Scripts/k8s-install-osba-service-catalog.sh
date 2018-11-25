@@ -33,7 +33,18 @@ helm repo add azure https://kubernetescharts.blob.core.windows.net/azure
 
 #helm inspect azure/open-service-broker-azure --debug
 
-sleep 5
+sleep 120
 
 echo "Install the Open Service Broker for Azure using the Helm chart"
 helm install azure/open-service-broker-azure --name osba --namespace osba --set azure.subscriptionId=${subscriptionId} --set azure.tenantId=${tenantId} --set azure.clientId=${clientId} --set azure.clientSecret=${clientSecret} --set image.pullPolicy=Always --wait --debug
+
+if [ "$?" = "0" ]; then
+
+else
+	echo "got error while installing osba chart.. trying again. Deleting current failed release"
+	helm delete --purge osba
+	echo "Waiting for 2 mins.. before retrying"
+	sleep 120
+	echo "installing again..."
+	helm install azure/open-service-broker-azure --name osba --namespace osba --set azure.subscriptionId=${subscriptionId} --set azure.tenantId=${tenantId} --set azure.clientId=${clientId} --set azure.clientSecret=${clientSecret} --set image.pullPolicy=Always --wait --debug
+fi
