@@ -22,11 +22,14 @@ helm repo add svc-cat https://svc-catalog-charts.storage.googleapis.com
 echo "Install Service Catalog"
 helm install svc-cat/catalog --name catalog --namespace catalog --set controllerManager.healthcheck.enabled=false --wait
 
+echo "Getting status of apiservice"
+kubectl get apiservice
+
 echo "Add Open Service Broker for Azure Helm repository"
 helm repo add azure https://kubernetescharts.blob.core.windows.net/azure
 
-echo "Updating the repo"
-helm repo update
+#echo "Updating the repo"
+#helm repo update
 
 #helm inspect azure/open-service-broker-azure --debug
 
