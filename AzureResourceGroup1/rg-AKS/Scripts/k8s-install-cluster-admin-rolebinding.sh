@@ -12,10 +12,6 @@ error_exit()
 	exit 1
 }
 
-az configure --defaults acr=${acrName}
-
-az acr helm repo add
-
 MY_PATH="`dirname \"$0\"`"              # relative
 echo "$MY_PATH"
 

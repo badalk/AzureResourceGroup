@@ -1,8 +1,8 @@
 ﻿#!/bin/bash
 echo "Install helm client ......."
-sudo snap install helm --classic		#need to find out how to avoid this without using sudo
+sudo snap install helm --classic
 
-MY_PATH="`dirname \"$0\"`"              # relative
+MY_PATH="`dirname \"$0\"`"              # current directory path
 echo "$MY_PATH"
 
 echo "Creating tiller service account and rolebinding ......."
