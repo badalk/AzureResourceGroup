@@ -6,21 +6,13 @@ tenantId=$2
 clientId=$3
 clientSecret=$4
 
-PROGNAME=$(basename $0)
-
-error_exit()
-{
-	echo "${PROGNAME}: ${1:-"Unknown Error"}" 1>&2
-	exit 1
-}
-
 helm init --upgrade --wait
 
 echo "Adding google service catalog repo"
 helm repo add svc-cat https://svc-catalog-charts.storage.googleapis.com
 
 echo "Install Service Catalog"
-helm install svc-cat/catalog --name catalog --namespace catalog --wait
+#helm install svc-cat/catalog --name catalog --namespace catalog --wait
 helm install svc-cat/catalog --name catalog --namespace catalog --set apiserver.storage.etcd.persistence.enabled=true --set apiserver.healthcheck.enabled=false --set controllerManager.healthcheck.enabled=false --set apiserver.verbosity=2 --set controllerManager.verbosity=2 --wait
 
 echo "Getting status of apiservice"
