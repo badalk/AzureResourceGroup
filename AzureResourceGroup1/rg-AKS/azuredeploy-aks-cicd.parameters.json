@@ -6,7 +6,7 @@
       "value": "mycicdakscluster"
     },
     "numberOfNodes": {
-      "value": 2
+      "value": 3
     },
     "vnetSubnetId": {
       "value": "/subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-enterprise/subnets/vnet-k8s-cicd"
@@ -14,6 +14,12 @@
     "logAnalyticsWorkspaceResourceID": {
       //"value": "/subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourcegroups/defaultresourcegroup-eus/providers/microsoft.operationalinsights/workspaces/defaultworkspace-4dfeb08c-7e41-40af-a9fa-fabcac401c2d-eus"
       "value": "/subscriptions/4dfeb08c-7e41-40af-a9fa-fabcac401c2d/resourcegroups/defaultresourcegroup-eus/providers/microsoft.operationalinsights/workspaces/k8s-cicd-workspace"
+    },
+    "nodeVMSKU": {
+      "value": "Standard_DS2_v2"
+    },
+    "KubernetesVersion": {
+      "value": "1.11.5"
     }
 
   }
