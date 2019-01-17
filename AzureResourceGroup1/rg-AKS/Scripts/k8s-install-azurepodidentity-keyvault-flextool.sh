@@ -25,6 +25,10 @@ echo "Creating AzureIdentity resources"
 MY_PATH="`dirname \"$0\"`"              # relative
 echo "$MY_PATH"
 
+#adding key-vault flex volume
+kubectl create -f https://raw.githubusercontent.com/Azure/kubernetes-keyvault-flexvol/master/deployment/kv-flexvol-installer.yaml
+
+
 echo "Creating aadpodidentity resources ......."
 #since we have RBAC enabled on the cluster we have to use rbac enabled deployment definition,
 #but instead of reading it from github as commented in below comment we are using the locally defined yaml file which is 
