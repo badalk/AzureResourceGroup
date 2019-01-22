@@ -40,6 +40,9 @@
     <Content Include="rg-AKS\Resources\deployment-rbac.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="rg-AKS\Resources\pg-aks-namespace\templates\pg-aks-namespace.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="rg-AKS\Scripts\k8s-azure-add-tags.sh">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -94,6 +97,8 @@
     </Content>
     <None Include="rg-AKS\Resources\k8sClusterAdmin\Chart.yaml" />
     <None Include="rg-AKS\Resources\k8sClusterAdmin\Values.yaml" />
+    <None Include="rg-AKS\Resources\pg-aks-namespace\Chart.yaml" />
+    <None Include="rg-AKS\Resources\pg-aks-namespace\Values.yaml" />
     <None Include="rg-windowssvr\WindowsVirtualMachine.json" />
     <None Include="rg-windowssvr\WindowsVirtualMachine.parameters.json" />
     <None Include="roottemplate.json" />

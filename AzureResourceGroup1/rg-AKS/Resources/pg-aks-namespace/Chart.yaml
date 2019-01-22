@@ -1,0 +1,15 @@
+﻿apiVersion: v1
+description: Chart to grant cluster admin role to an object id passed as input
+keywords: 
+  - Namespace
+  - RestrictedNamespace
+icon: https://github.com/kubernetes/kubernetes/blob/master/logo/logo.png
+name: pg-aks-namespace
+version: 1.0.0
+home: https://github.com/badalk/AzureResourceGroup1/AzureResourceGroup1/rg-AKS/resources/pg-aks-namespace
+sources:
+- https://github.com/badalk/AzureResourceGroup1/AzureResourceGroup1/rg-AKS/resources
+maintainers:
+- name: Badal Kotecha
+  email: badal.kotecha@mindtree.com
+engine: gotpl

@@ -1,0 +1,44 @@
+# Creating a given namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.namespace }}
+---
+# Namespace role to grant permissions for specific resources in K8s cluster
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ .Values.namespace }}-admins
+  namespace: {{ .Values.namespace }}
+rules:
+- apiGroups: [""]
+  resources: ["pods", "pods/log", "secrets", "services", "deployments", "endpoints"]
+  verbs: ["get", "list", "watch", "create", "update", "delete", "patch", "logs", "proxy",  "redirect"]
+---
+# Role binding that grants <namespace>-admins role as defined above to a subject 
+# (subject type - Group / User and Subject ID : Corresponding Azure AD Onject ID)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+ name: {{ .Values.namespace }}-admins-binding
+ namespace: {{ .Values.namespace }}
+roleRef:
+ apiGroup: rbac.authorization.k8s.io
+ kind: Role
+ name: {{ .Values.namespace }}-admins
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: {{ .Values.subjectType }}
+  name: {{ .Values.subjectObjectId | quote }}
+---
+# Network policy to by default deny all traffic to the namespace 
+# (Note: podSelector is empty so it will apply to all pods except if any additional policies are deployed)
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: {{ .Values.namespace }}-deny-all-ingress
+  namespace: {{ .Values.namespace }}
+spec:
+  podSelector: {}
+  ingress: []
